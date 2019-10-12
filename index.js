@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000
 // EXPRESS ENDPOINTS
 
 app.get('/', function (req, res) {
-    res.send('Hello')
+    res.send(`Welcome to Kirkland's Signature`)
 })
 
 // --------------------------------------------------------------------------------------
