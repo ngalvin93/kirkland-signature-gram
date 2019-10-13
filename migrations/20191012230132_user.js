@@ -8,6 +8,7 @@ return knex.schema.createTable('User', function (table) {
     .notNullable()
   table.string('email', 100)
     .notNullable()
+    .unique()
   table.string('password', 6)
     .notNullable()
   table.string('bio', 250)
