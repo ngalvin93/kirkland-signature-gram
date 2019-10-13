@@ -1,22 +1,21 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable('Post', function (table) {
-        table.increments('postId')
+    return knex.schema.createTable('Like', function (table) {
+        table.increments('likeId')
         table.integer('userId')
             .notNullable()
             .references('userId')
             .inTable('User')
             .onDelete('CASCADE')
-        table.string('imagePath')
+        table.integer('postId')
             .notNullable()
-        table.string('caption', 250)
-            .notNullable()
-        table.integer('like')
-            .notNullable()
+            .references('postId')
+            .inTable('Post')
+            .onDelete('CASCADE')
         table.timestamps(true, true)
     })
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable('Post')
+  return knex.schema.dropTable('Like')
 };
