@@ -3,15 +3,15 @@ exports.up = function(knex) {
   return knex.schema.createTable('User', function (table) {
     table.increments('userId')
     table.string('firstName', 25)
-        .notNullable()
+      .notNullable()
     table.string('lastName', 25)
-        .notNullable()
+      .notNullable()
     table.string('email', 100)
-        .notNullable()
+      .notNullable()
     table.string('password', 6)
-        .notNullable()
+      .notNullable()
     table.string('bio', 250)
-    table.timestamps()
+    table.timestamps(true, true)
   })
 };
 
