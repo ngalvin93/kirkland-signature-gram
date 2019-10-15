@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users')
 
 var app = express()
 
+const port = process.env.PORT || 3000
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
@@ -36,6 +38,15 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500)
   res.render('error')
+})
+// init get
+app.get('/', function (req, res, next) {
+  res.send('Hello')
+})
+
+// listen on port
+app.listen(port, function () {
+  console.log('Listening on port ' + port + ' 👌')
 })
 
 module.exports = app
