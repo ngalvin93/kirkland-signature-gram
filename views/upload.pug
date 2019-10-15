@@ -1,0 +1,27 @@
+head
+  include head.pug
+  body    
+    include profilenav.pug
+    div.feedcontainer
+      div.maincontainer
+        form(class="uploadform" action="upload" id="uploadForm" enctype="multipart/form-data" method="POST")
+          center
+            input(type="text" class="uploadInput" name="description" placeholder="Enter your caption!")
+          div.file-upload
+            button(class="file-upload-btn" type="button"  onclick="$('.file-upload-input').trigger( 'click' )") Upload
+          div.image-upload-wrap
+            input(class="file-upload-input" type='file' name="myImage" onchange="readURL(this);" accept="image/*")
+            div.drag-text
+              h3 Drag and drop a file or select add Image
+          div.file-upload-content
+            img(class="file-upload-image" src="#" alt="your image")
+        
+          div.image-title-wrap
+            button(type="submit" onclick="removeUpload()" class="send-image") SEND
+             
+                 
+              
+          
+      
+
+  script(src="/public/javascripts/upload.js")
