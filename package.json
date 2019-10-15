@@ -1,10 +1,16 @@
 {
   "name": "kirkland-signature-gram",
   "version": "0.0.0",
+  "description": "Copy of Instagram, but with text",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngalvin93/kirkland-signature-gram"
+  },
   "private": true,
   "scripts": {
     "test": "standard"
   },
+  "main": "app.js",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -17,6 +23,6 @@
     "sqlite3": "4.1.0"
   },
   "devDependencies": {
-    "standard": "^14.3.1"
+    "standard": "14.3.1"
   }
 }
