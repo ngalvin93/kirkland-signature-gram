@@ -1,4 +1,5 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.org/ngalvin93/kirkland-signature-gram.svg?branch=master)](https://travis-ci.org/ngalvin93/kirkland-signature-gram)
 # Kirkland's Signature-gram
 
 This is our final project for "Phase 2" of the Flex course for DigitalCrafts Houston. It is focused on backend technologies using Node.js.
