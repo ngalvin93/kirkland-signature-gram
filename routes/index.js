@@ -7,7 +7,11 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-  res.send('My profile and my feed')
+  if (req.params.id === 'account') {
+    res.send('Sorry page not found')
+  } else {
+    res.send('My profile and my feed')
+  }
 })
 
 module.exports = router
