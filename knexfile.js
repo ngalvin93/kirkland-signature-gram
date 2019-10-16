@@ -3,10 +3,19 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     connection: {
-      filename: './db/sample.db'
-    }
+      host: 'localhost',
+      user: 'postgres',
+      database: 'gram'
+    },
+    migrations: {
+      directory: './migrations'
+    },
+    seeds: {
+      directory: './seeds'
+    },
+    useNullAsDefault: true
   },
 
   staging: {
