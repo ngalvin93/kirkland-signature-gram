@@ -6,7 +6,7 @@ var logger = require('morgan')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-var accountRouter = require('./account') // automatically looks for index.js in the specified directory
+var accountRouter = require('./routes/accounts') // automatically looks for index.js in the specified directory
 
 var app = express()
 
