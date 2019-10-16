@@ -6,6 +6,8 @@ exports.up = function (knex) {
       .notNullable()
     table.string('lastName', 25)
       .notNullable()
+    table.string('username', 25)
+      .notNullable()
     table.string('email', 100)
       .notNullable()
       .unique()
