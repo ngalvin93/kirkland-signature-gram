@@ -3,7 +3,11 @@ var router = express.Router()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Home' })
+  res.send('Feed')
+})
+
+router.get('/:id', function (req, res, next) {
+  res.send('My profile and my feed')
 })
 
 module.exports = router

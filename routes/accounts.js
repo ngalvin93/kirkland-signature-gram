@@ -1,29 +1,29 @@
 const express = require('express')
 const router = express.Router()
 
-// Routes below are prepended with /auth from mounting on app.js
+// Routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
-  res.json({
-    message: 'Login page with form'
-  })
+  res.send('Login page with form')
 })
 
 router.post('/login', function (req, res) {
-  res.json({
-    message: 'Attemping to send login information'
-  })
+  res.send('Attemping to send login information')
 })
 
 router.get('/register', function (req, res) {
-  res.json({
-    message: 'Register page with form'
-  })
+  res.send('Register page with form')
 })
 
 router.post('/register', function (req, res) {
-  res.json({
-    message: 'Attempting to send register information'
-  })
+  res.send('Attempting to send register information')
+})
+
+router.get('/edit', function (req, res) {
+  res.send('Account settings')
+})
+
+router.post('/edit', function (req, res) {
+  res.send('Change account settings')
 })
 
 module.exports = router // exports this router usually to app.js
