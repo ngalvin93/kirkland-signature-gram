@@ -2,11 +2,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('Like', function (table) {
     table.increments('likeId')
-    table.integer('userId')
-      .notNullable()
-      .references('userId')
-      .inTable('User')
-      .onDelete('CASCADE')
     table.integer('postId')
       .notNullable()
       .references('postId')
