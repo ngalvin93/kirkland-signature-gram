@@ -3,7 +3,7 @@ const router = express.Router()
 
 // Routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
-  res.send('Login page with form')
+  res.render('login')
 })
 
 router.post('/login', function (req, res) {
