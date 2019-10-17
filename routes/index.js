@@ -10,7 +10,7 @@ router.get('/:id', function (req, res, next) {
   if (req.params.id === 'account') {
     res.send('Sorry page not found')
   } else {
-    res.send('My profile and my feed')
+    res.render('profile')
   }
 })
 

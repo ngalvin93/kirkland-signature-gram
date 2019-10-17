@@ -11,7 +11,7 @@ router.post('/login', function (req, res) {
 })
 
 router.get('/register', function (req, res) {
-  res.send('Register page with form')
+  res.render('register')
 })
 
 router.post('/register', function (req, res) {

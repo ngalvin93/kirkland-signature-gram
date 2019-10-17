@@ -39,10 +39,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
-// init get
-app.get('/', function (req, res, next) {
-  res.send('Hello')
-})
 
 // listen on port
 app.listen(port, function () {
