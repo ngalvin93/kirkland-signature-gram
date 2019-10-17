@@ -3,6 +3,8 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+var passport = require('passport')
+var Strategy = require('passport-local').Strategy
 
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
@@ -10,6 +12,13 @@ var accountRouter = require('./routes/account') // automatically looks for index
 var app = express()
 
 const port = process.env.PORT || 3000
+
+// passport config
+// passport.use(new Strategy(
+//   function (username, password, cb) {
+
+//   }
+// ))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
