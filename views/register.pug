@@ -8,11 +8,20 @@ head
           each error in errors
             div(class="alert alert-danger")= error.msg
       form(method="post" action="/register")
-        h3#emailHelp.form-text.text-muted Please Register
+        h3#emailHelp.form-text.text-muted Create an account
         br
         .form-group
-          label(for="exampleInputEmail1") Username
-          input#exampleInputEmail1.form-control(type="text", name="username", aria-describedby="emailHelp", placeholder="Enter username")
+          label(for="first") First
+          input#first.form-control(type="text", name="first", placeholder="First")
+          br
+          label(for="last") Last
+          input#last.form-control(type="text", name="last", placeholder="Last")
+          br
+          label(for="username") Username
+          input#username.form-control(type="text", name="username", placeholder="Username")
+          br
+          label(for="email") Email
+          input#email.form-control(type="text", name="email", placeholder="Email")
         .form-group
           label(for="exampleInputPassword1") Password
           input#exampleInputPassword1.form-control(type="password",name="password", placeholder="Password")
