@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 
 var indexRouter = require('./routes/index')
-var accountRouter = require('./routes/accounts') // automatically looks for index.js in the specified directory
+var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 
 var app = express()
 
