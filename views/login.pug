@@ -1,0 +1,24 @@
+head
+  include head.pug
+  body    
+    include nav.pug
+    div.registerForm
+      if errors
+        ul.errors
+          each error in errors
+            div(class="alert alert-danger")= error.msg
+      form(method="post" action="/register")
+        h3#emailHelp.form-text.text-muted Welcome
+        br
+        .form-group
+          label(for="exampleInputEmail1") Username
+          input#exampleInputEmail1.form-control(type="text", name="username", aria-describedby="emailHelp", placeholder="Enter username")
+        .form-group
+          label(for="exampleInputPassword1") Password
+          input#exampleInputPassword1.form-control(type="password",name="password", placeholder="Password")
+
+        button.btn.btn-primary(type="submit") Submit
+          
+
+          
+//   script(src="/public/javascripts/upload.js")
