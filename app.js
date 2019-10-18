@@ -4,9 +4,10 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var passport = require('passport')
-// var Strategy = require('passport-local').Strategy
+var Strategy = require('passport-local').Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var session = require('express-session')
+require('dotenv').config()
 
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
@@ -14,9 +15,6 @@ var accountRouter = require('./routes/account') // automatically looks for index
 var app = express()
 
 const port = process.env.PORT || 3000
-
-const FACEBOOK_APP_ID = '2391198310978732'
-const FACEBOOK_APP_SECRET = 'ba92420b7339af1168fac130c3526df8'
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -57,8 +55,8 @@ passport.deserializeUser(function (obj, cb) {
 })
 
 passport.use(new FacebookStrategy({
-  clientID: FACEBOOK_APP_ID,
-  clientSecret: FACEBOOK_APP_SECRET,
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: '/auth/facebook/callback'
 },
 function (accessToken, refreshToken, profile, cb) {

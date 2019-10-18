@@ -6,8 +6,13 @@ router.get('/login', function (req, res) {
   res.render('login')
 })
 
-router.post('/login', function (req, res) {
-  res.send('Attemping to send login information')
+router.post('/login', function (req, res, next) {
+  console.log('post to /login')
+  if (validUser(req.body)) {
+    res.send('Valid email and password format')
+  } else {
+    next(new Error('Invalid email and password format'))
+  }
 })
 
 router.get('/register', function (req, res) {
@@ -16,13 +21,9 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   if (validUser(req.body)) {
-    console.log('body', req.body)
-    console.log('email', req.body.email)
-    console.log('password', req.body.password)
-    res.send('success')
+    res.redirect('/')
   } else {
-    console.log('false', req.body)
-    next(new Error('Invalid user'))
+    next(new Error('Invalid email and password format'))
   }
 })
 
