@@ -15,7 +15,7 @@ router.get('/register', function (req, res) {
 })
 
 router.post('/register', function (req, res, next) {
-  if(validUser(req.body)) {
+  if (validUser(req.body)) {
     console.log('body', req.body)
     console.log('email', req.body.email)
     console.log('password', req.body.password)
@@ -38,7 +38,7 @@ router.post('/edit', function (req, res) {
 // --------------------------------------------------------------------------------------------------------
 function validUser (user) {
   const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)
-  const validPassword = typeof user.password === 'string' && user.password.trim() != '' && user.password.trim().length >= 6
+  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
   return validEmail && validPassword
 }
 
