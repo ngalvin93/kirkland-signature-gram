@@ -40,9 +40,19 @@ app.use(passport.session())
 app.use('/', indexRouter)
 app.use('/account', accountRouter)
 
+// local strategy
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+
 // facebook
 app.get('/success', (req, res) => res.send('You have successfully logged in'))
-
 app.get('/error', (req, res) => res.send('error logging in'))
 
 // this is the session id associated with the id
