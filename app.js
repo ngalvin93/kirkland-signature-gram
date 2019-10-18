@@ -21,9 +21,9 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 // set up express sessions
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1)
 app.use(session({
-  secret: 'keyboard cat', // env
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
