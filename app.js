@@ -51,9 +51,16 @@ passport.use(new Strategy(
     });
   }));
 
-// facebook
-app.get('/success', (req, res) => res.send('You have successfully logged in'))
-app.get('/error', (req, res) => res.send('error logging in'))
+// facebook strategy
+  passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: '/auth/facebook/callback'
+  },
+  function (accessToken, refreshToken, profile, cb) {
+    return cb(null, profile)
+  }
+  ))
 
 // this is the session id associated with the id
 passport.serializeUser(function (user, cb) {
@@ -64,16 +71,7 @@ passport.deserializeUser(function (obj, cb) {
   cb(null, obj)
 })
 
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: '/auth/facebook/callback'
-},
-function (accessToken, refreshToken, profile, cb) {
-  return cb(null, profile)
-}
-))
-
+// facebook
 app.get('/auth/facebook',
   passport.authenticate('facebook'))
 
@@ -82,6 +80,10 @@ app.get('/auth/facebook/callback',
   function (req, res) {
     res.redirect('/success')
   })
+
+app.get('/success', (req, res) => res.send('You have successfully logged in'))
+
+app.get('/error', (req, res) => res.send('error logging in'))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
