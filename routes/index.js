@@ -10,39 +10,27 @@ router.get('/', function (req, res, next) {
 
 router.get('/:username', function (req, res, next) {
   findUserByUsername(req.params.username)
-  .then(function (user) {
-    res.send(user)
-  })
+    .then(function (user) {
+      res.send(user)
+    })
+    .catch(function (err) {
+      res.status(404).send('That username does not exist! Error: ' + err)
+    })
 })
 
 // knex query
 // --------------------------------------------------------------------------------------------------------
-function findUserById (id) {
-  return knex.select().from('User').where({
-    userId: id
-  })
-  .then(function (results) {
-    if (results.length === 0) {
-      throw null
-    } else {
-      return results[0]
-    }
-  })
-}
-
 function findUserByUsername (username) {
   return knex.select().from('User').where({
     username: username
   })
-  .then(function (results) {
-    if (results.length === 0) {
-      throw null
-    } else {
-      return results[0]
-    }
-  })
+    .then(function (results) {
+      if (results.length === 0) {
+        throw null
+      } else {
+        return results[0]
+      }
+    })
 }
-
-
 
 module.exports = router

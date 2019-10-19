@@ -42,25 +42,25 @@ app.use('/account', accountRouter)
 
 // local strategy
 passport.use(new Strategy(
-  function(username, password, cb) {
-    db.users.findByUsername(username, function(err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
+  function (username, password, cb) {
+    db.users.findByUsername(username, function (err, user) {
+      if (err) { return cb(err) }
+      if (!user) { return cb(null, false) }
+      if (user.password != password) { return cb(null, false) }
+      return cb(null, user)
+    })
+  }))
 
 // facebook strategy
-  passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: '/auth/facebook/callback'
-  },
-  function (accessToken, refreshToken, profile, cb) {
-    return cb(null, profile)
-  }
-  ))
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: '/auth/facebook/callback'
+},
+function (accessToken, refreshToken, profile, cb) {
+  return cb(null, profile)
+}
+))
 
 // this is the session id associated with the id
 passport.serializeUser(function (user, cb) {
