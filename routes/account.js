@@ -25,8 +25,7 @@ router.get('/login', function (req, res) {
 })
 
 router.post('/login', function (req, res, next) {
-  console.log('post to /login')
-  if (validUser(req.body)) {
+  if (validLoginInformation(req.body)) {
     res.send('Valid email and password format')
   } else {
     next(new Error('Invalid email and password format'))
@@ -37,17 +36,8 @@ router.get('/register', function (req, res) {
   res.render('register')
 })
 
-date: new Date()
-
 router.post('/register', function (req, res, next) {
-  const userInfo = {
-    first: req.body.first,
-    last: req.body.last,
-    username: req.body.username,
-    password: req.body.password
-  }
-  console.log(userInfo)
-  if (validUser(userInfo)) {
+  if (validRegisterInformation(req.body.username)) {
     res.redirect('/')
   } else {
     next(new Error('Invalid username and password format'))
@@ -64,8 +54,14 @@ router.post('/edit', function (req, res) {
 
 // validation functions
 // --------------------------------------------------------------------------------------------------------
-function validUser (user) {
+function validRegisterInformation (user) {
   const validUsername = typeof user.username === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.username)
+  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
+  return validUsername && validPassword
+}
+
+function validLoginInformation (user) {
+  const validUsername = typeof user.username === 'string' && user.username.trim().length < 25
   const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
   return validUsername && validPassword
 }
