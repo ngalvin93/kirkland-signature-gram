@@ -26,9 +26,9 @@ router.get('/login', function (req, res) {
 
 router.post('/login', function (req, res, next) {
   if (validLoginInformation(req.body)) {
-    res.send('Valid email and password format')
+    res.send('Valid login information')
   } else {
-    next(new Error('Invalid email and password format'))
+    next(new Error('Invalid information format'))
   }
 })
 
@@ -37,10 +37,10 @@ router.get('/register', function (req, res) {
 })
 
 router.post('/register', function (req, res, next) {
-  if (validRegisterInformation(req.body.username)) {
-    res.redirect('/')
+  if (validRegisterInformation(req.body)) {
+    res.send('Valid registration information')
   } else {
-    next(new Error('Invalid username and password format'))
+    next(new Error('Invalid information format'))
   }
 })
 
@@ -55,13 +55,15 @@ router.post('/edit', function (req, res) {
 // validation functions
 // --------------------------------------------------------------------------------------------------------
 function validRegisterInformation (user) {
-  const validUsername = typeof user.username === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.username)
+  const validFullName = typeof user.fullname === 'string' && user.fullname.trim() !== '' && user.fullname.trim().length >= 1
+  const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && user.username.trim().length >= 1
+  const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email) && user.email.trim() !== ''
   const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
-  return validUsername && validPassword
+  return validFullName && validUsername && validEmail && validPassword
 }
 
 function validLoginInformation (user) {
-  const validUsername = typeof user.username === 'string' && user.username.trim().length < 25
+  const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && user.username.trim().length >= 1
   const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
   return validUsername && validPassword
 }
