@@ -6,7 +6,7 @@ const knex = require('knex')(knexConfig.development)
 // testing
 
 router.get('/test', function (req, res) {
-  findUser(2)
+  findUserById(2)
   .then(function (student) {
     res.send(student)
   })
@@ -60,7 +60,7 @@ function validUser (user) {
 
 // knex queries
 // --------------------------------------------------------------------------------------------------------
-function findUser (id) {
+function findUserById (id) {
   return knex.select().from('User').where({
     userId: id
   })
