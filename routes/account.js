@@ -1,5 +1,20 @@
 const express = require('express')
 const router = express.Router()
+const knexConfig = require('../knexfile')
+const knex = require('knex')(knexConfig.development)
+
+// testing
+
+router.get('/test', function (req, res) {
+  findUser(2)
+  .then(function (student) {
+    res.send(student)
+  })
+  .catch(function(error){
+    console.log(error)
+    res.status(500).send('Something went wrong')
+  })
+})
 
 // Routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
@@ -41,6 +56,21 @@ function validUser (user) {
   const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)
   const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
   return validEmail && validPassword
+}
+
+// knex queries
+// --------------------------------------------------------------------------------------------------------
+function findUser (id) {
+  return knex.select().from('User').where({
+    userId: id
+  })
+  .then(function (results) {
+    if (results.length === 0) {
+      throw null
+    } else {
+      return results[0]
+    }
+  })
 }
 
 module.exports = router // exports this router usually to app.js
