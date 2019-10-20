@@ -33,12 +33,14 @@ router.get('/register', function (req, res) {
 router.post('/register', function (req, res, next) {
   if (validRegisterInformation(req.body)) {
     insertNewUser(req.body)
-      .then(function (user) {
-        console.log('finished')
-        res.send('New user information: ', user)
+      .then(function (username) {
+        res.redirect(`/${username}`)
+      })
+      .catch(function (err) {
+        next(new Error(err))
       })
   } else {
-    next(new Error('Invalid information format'))
+    res.send('something went wong!!!!')
   }
 })
 
@@ -56,13 +58,13 @@ function validRegisterInformation (user) {
   const validFullName = typeof user.fullname === 'string' && user.fullname.trim() !== '' && user.fullname.trim().length >= 1
   const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && user.username.trim().length >= 1
   const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email) && user.email.trim() !== ''
-  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
+  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length <= 6
   return validFullName && validUsername && validEmail && validPassword
 }
 
 function validLoginInformation (user) {
   const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && user.username.trim().length >= 1
-  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length >= 6
+  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length <= 6
   return validUsername && validPassword
 }
 
@@ -82,8 +84,12 @@ function insertNewUser (user) {
   const username = user.username
   const email = user.email
   const password = user.password
-  // console.log(fullname, username, email, password)
-  return knex.insert([{ fullName: fullname }, { username: username }, { email: email }, { password: password }], ['userId']).into('User')
+  return knex('User').insert({
+    fullName: fullname,
+    username: username,
+    email: email,
+    password: password
+  }, 'username')
 }
 
 module.exports = router // exports this router usually to app.js
