@@ -6,19 +6,6 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// testing
-
-router.get('/test', function (req, res) {
-  findUserById(2)
-    .then(function (student) {
-      res.send(student)
-    })
-    .catch(function (error) {
-      console.log(error)
-      res.status(500).send('Something went wrong')
-    })
-})
-
 // Routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
   res.render('login')
@@ -26,7 +13,14 @@ router.get('/login', function (req, res) {
 
 router.post('/login', function (req, res, next) {
   if (validLoginInformation(req.body)) {
-    res.send('Valid login information')
+    findUserByUsername(req.body.username)
+    .then(function (user) {
+      if (!user) {
+        res.send('there is no user with that username')
+      } else {
+        res.json(user)
+      }
+    })
   } else {
     next(new Error('Invalid information format'))
   }
@@ -38,7 +32,11 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   if (validRegisterInformation(req.body)) {
-    res.send('Valid registration information')
+    insertNewUser(req.body)
+    .then(function (user) {
+      console.log('finished')
+      res.send('New user information: ', user)
+    })
   } else {
     next(new Error('Invalid information format'))
   }
@@ -70,17 +68,22 @@ function validLoginInformation (user) {
 
 // knex queries
 // --------------------------------------------------------------------------------------------------------
-function findUserById (id) {
+function findUserByUsername (username) {
   return knex.select().from('User').where({
-    userId: id
+    username: username
   })
-    .then(function (results) {
-      if (results.length === 0) {
-        throw null
-      } else {
-        return results[0]
-      }
-    })
+  .then(function (user) {
+    return user[0]
+  })
+}
+
+function insertNewUser (user) {
+  const fullname = user.fullname
+  const username = user.username
+  const email = user.email
+  const password = user.password
+  // console.log(fullname, username, email, password)
+  return knex.insert([{fullName: fullname}, {username: username}, {email: email}, {password: password}], ['userId']).into('User')
 }
 
 module.exports = router // exports this router usually to app.js
