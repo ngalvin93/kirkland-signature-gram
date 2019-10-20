@@ -7,12 +7,12 @@ head
         ul.errors
           each error in errors
             div(class="alert alert-danger")= error.msg
-      form(method="post" action="/login")
+      form(method="post" action="login")
         h3#emailHelp.form-text.text-muted Welcome back
         br
         .form-group
-          label(for="exampleInputEmail1") Email
-          input#exampleInputEmail1.form-control(type="text", name="email", aria-describedby="emailHelp")
+          label(for="exampleInputUsername1") Username
+          input#exampleInputUsername1.form-control(type="text", name="username")
         .form-group
           label(for="exampleInputPassword1") Password
           input#exampleInputPassword1.form-control(type="password", name="password")

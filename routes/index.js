@@ -26,7 +26,7 @@ function findUserByUsername (username) {
   })
     .then(function (results) {
       if (results.length === 0) {
-        throw null
+        return null
       } else {
         return results[0]
       }

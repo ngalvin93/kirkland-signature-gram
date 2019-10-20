@@ -4,7 +4,7 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var passport = require('passport')
-var Strategy = require('passport-local').Strategy
+// var Strategy = require('passport-local').Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var session = require('express-session')
 require('dotenv').config()
@@ -41,15 +41,15 @@ app.use('/', indexRouter)
 app.use('/account', accountRouter)
 
 // local strategy
-passport.use(new Strategy(
-  function (username, password, cb) {
-    db.users.findByUsername(username, function (err, user) {
-      if (err) { return cb(err) }
-      if (!user) { return cb(null, false) }
-      if (user.password != password) { return cb(null, false) }
-      return cb(null, user)
-    })
-  }))
+// passport.use(new Strategy(
+//   function (username, password, cb) {
+//     db.users.findByUsername(username, function (err, user) {
+//       if (err) { return cb(err) }
+//       if (!user) { return cb(null, false) }
+//       if (user.password !== password) { return cb(null, false) }
+//       return cb(null, user)
+//     })
+//   }))
 
 // facebook strategy
 passport.use(new FacebookStrategy({
