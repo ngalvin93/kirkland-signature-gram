@@ -33,11 +33,14 @@ router.get('/register', function (req, res) {
 router.post('/register', function (req, res, next) {
   if (validRegisterInformation(req.body)) {
     insertNewUser(req.body)
-      .then(function (user) {
-        res.send('New user id: ', user)
+      .then(function (username) {
+        res.redirect(`/${username}`)
+      })
+      .catch(function (err) {
+        next(new Error('create new user error'))
       })
   } else {
-    next(new Error('Invalid information format'))
+    res.send('something went wong!!!!')
   }
 })
 
@@ -86,7 +89,7 @@ function insertNewUser (user) {
     username: username,
     email: email,
     password: password
-  }, 'userId')
+  }, 'username')
 }
 
 module.exports = router // exports this router usually to app.js
