@@ -37,7 +37,7 @@ router.post('/register', function (req, res, next) {
         res.redirect(`/${username}`)
       })
       .catch(function (err) {
-        next(new Error('create new user error'))
+        next(new Error(err))
       })
   } else {
     res.send('something went wong!!!!')
