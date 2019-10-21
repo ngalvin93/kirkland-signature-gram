@@ -1,6 +1,6 @@
 const express = require('express')
 const passport = require('passport')
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 const session = require('express-session')
 const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
@@ -51,7 +51,6 @@ router.get('/register', function (req, res) {
 })
 
 router.post('/register', function (req, res, next) {
-
   if (validRegisterInformation(req.body)) {
     insertNewUser(req.body)
       .then(function (username) {
