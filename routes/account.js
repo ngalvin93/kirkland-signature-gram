@@ -1,4 +1,8 @@
 const express = require('express')
+const passport = require('passport')
+// const bcrypt = require('bcrypt')
+const session = require('express-session')
+const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
 const knexConfig = require('../knexfile')
 const knex = require('knex')(knexConfig.development)
@@ -6,19 +10,35 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// Routes below are prepended with /account from mounting on app.js
+// passport configuration
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    // is there an exisitng use with that username? see if there a username that matches the username
+  }
+))
+
+// session configuration
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
+
+// routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
   res.render('login')
 })
 
 router.post('/login', function (req, res, next) {
   if (validLoginInformation(req.body)) {
-    findUserByUsername(req.body.username)
-      .then(function (user) {
-        if (!user) {
+    findUserByUsername(req.body)
+      .then(function (username) {
+        if (!username) {
           res.send('there is no user with that username')
         } else {
-          res.json(user)
+          res.redirect(`/${username}`)
         }
       })
   } else {
@@ -55,9 +75,9 @@ router.post('/edit', function (req, res) {
 // validation functions
 // --------------------------------------------------------------------------------------------------------
 function validRegisterInformation (user) {
-  const validFullName = typeof user.fullname === 'string' && user.fullname.trim() !== '' && user.fullname.trim().length >= 1
-  const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && user.username.trim().length >= 1
-  const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email) && user.email.trim() !== ''
+  const validFullName = typeof user.fullname === 'string' && user.fullname.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 25)
+  const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 25)
+  const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email) && user.email.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 100)
   const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length <= 6
   return validFullName && validUsername && validEmail && validPassword
 }
@@ -70,12 +90,14 @@ function validLoginInformation (user) {
 
 // knex queries
 // --------------------------------------------------------------------------------------------------------
-function findUserByUsername (username) {
+function findUserByUsername (user) {
+  const username = user.username
   return knex.select().from('User').where({
     username: username
   })
-    .then(function (user) {
-      return user[0]
+    .then(function (userArr) {
+      const singleUser = userArr[0]
+      return singleUser.username
     })
 }
 
