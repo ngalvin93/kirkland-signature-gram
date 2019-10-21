@@ -1,4 +1,8 @@
 const express = require('express')
+const passport = require('passport')
+const bcrypt = require('bcrypt')
+const session = require('express-session')
+const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
 const knexConfig = require('../knexfile')
 const knex = require('knex')(knexConfig.development)
@@ -6,7 +10,23 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// Routes below are prepended with /account from mounting on app.js
+// passport configuration
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    // is there an exisitng use with that username? see if there a username that matches the username
+  }
+))
+
+// session configuration
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
+
+// routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
   res.render('login')
 })
@@ -31,6 +51,7 @@ router.get('/register', function (req, res) {
 })
 
 router.post('/register', function (req, res, next) {
+
   if (validRegisterInformation(req.body)) {
     insertNewUser(req.body)
       .then(function (username) {
