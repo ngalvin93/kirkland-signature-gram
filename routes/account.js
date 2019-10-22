@@ -73,7 +73,7 @@ router.get('/login', function (req, res) {
   res.render('login')
 })
 
-router.post('/login', passport.authenticate('local', { failureRedirect: 'login' }), function (req, res, next) {
+router.post('/login', passport.authenticate('local', { failureRedirect: 'login', successRedirect: '/' }), function (req, res, next) {
   console.log('posting to login')
   if (validLoginInformation(req.body)) {
     console.log('verifying input data...')
