@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.string('email', 100)
       .notNullable()
       .unique()
-    table.string('password', 6)
+    table.string('password', 60)
       .notNullable()
     table.string('bio', 250)
     table.timestamps(true, true)
