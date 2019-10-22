@@ -30,6 +30,21 @@ passport.use(new LocalStrategy(
   }
 ))
 
+passport.serializeUser(function (user, done) {
+  done(null, user.userId)
+})
+
+passport.deserializeUser(function (id, done) {
+  findUserByIdStrategy(id)
+    .then(function (user) {
+      done(null, user[0])
+    })
+    .catch(function (error) {
+      console.log('deserializeUser err:', error)
+      done(error, null)
+    })
+})
+
 // session configuration
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
@@ -154,6 +169,10 @@ function findUserByUsername (user) {
 
 function findUserByUsernameStrategy (username) {
   return knex('User').where('username', username)
+}
+
+function findUserByIdStrategy (id) {
+  return knex('User').where('userId', id)
 }
 
 function insertNewUser (user) {
