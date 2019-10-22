@@ -14,6 +14,19 @@ app.use(express.urlencoded({ extended: false }))
 passport.use(new LocalStrategy(
   function (username, password, done) {
     // is there an exisitng use with that username? see if there a username that matches the username
+    findUserByUsernameStrategy(username)
+      .then(function (result) {
+        const user = result[0]
+        if (user && user.password === password) {
+          return done(null, user)
+        } else {
+          return done(null, false)
+        }
+      })
+      .catch(function (error) {
+        console.log('findUserByUsernameStrategy error: ', error)
+        return done(error)
+      })
   }
 ))
 
@@ -137,6 +150,10 @@ function findUserByUsername (user) {
     .catch(function (err) {
       console.error(err)
     })
+}
+
+function findUserByUsernameStrategy (username) {
+  return knex('User').where('username', username)
 }
 
 function insertNewUser (user) {
