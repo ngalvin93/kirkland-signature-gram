@@ -13,15 +13,23 @@ app.use(express.urlencoded({ extended: false }))
 // passport configuration
 passport.use(new LocalStrategy(
   function (username, password, done) {
+    console.log('checking to see if there is a user...')
     // is there an exisitng use with that username? see if there a username that matches the username
     findUserByUsernameStrategy(username)
       .then(function (result) {
+        console.log('Heres what the query found in the db: ', result)
         const user = result[0]
-        if (user && user.password === password) {
-          return done(null, user)
-        } else {
-          return done(null, false)
-        }
+        console.log('Now we compare user.password: ' + user.password + 'with password: ' + password)
+        bcrypt.compare(password, user.password)
+        .then(function (bool) {
+          if (user && bool) {
+            console.log('Found a match! ✨')
+            return done(null, user)
+          } else {
+            console.log('Did not find a match 🤮')
+            return done(null, false)
+          }
+        })
       })
       .catch(function (error) {
         console.log('findUserByUsernameStrategy error: ', error)
@@ -31,10 +39,12 @@ passport.use(new LocalStrategy(
 ))
 
 passport.serializeUser(function (user, done) {
+  console.log('serializing user....')
   done(null, user.userId)
 })
 
 passport.deserializeUser(function (id, done) {
+  console.log('deserializing user....')
   findUserByIdStrategy(id)
     .then(function (user) {
       done(null, user[0])
@@ -54,18 +64,19 @@ app.use(session({
   cookie: {}
 }))
 
+// init passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
   res.render('login')
 })
 
-router.post('/login', function (req, res, next) {
-  // validate correct login information
-  // check if there is a user with the username
-  // if there is an existing user, then compare passwords
-  // if there is no existing user, then return an error
-  // if passwords match, then login and redirect
+router.post('/login', passport.authenticate('local', { failureRedirect: 'login' }), function (req, res, next) {
+  console.log('posting to login')
   if (validLoginInformation(req.body)) {
+    console.log('verifying input data...')
     findUserByUsername(req.body)
       .then(function (userObj) {
         console.log('This is after pulling from the db: ', userObj)
@@ -147,6 +158,14 @@ function validLoginInformation (user) {
 
 // knex queries
 // --------------------------------------------------------------------------------------------------------
+function findUserByUsernameStrategy (username) {
+  return knex('User').where('username', username)
+}
+
+function findUserByIdStrategy (id) {
+  return knex('User').where('userId', id)
+}
+
 function findUserByUsername (user) {
   const username = user.username
   return knex.select().from('User').where({
@@ -165,14 +184,6 @@ function findUserByUsername (user) {
     .catch(function (err) {
       console.error(err)
     })
-}
-
-function findUserByUsernameStrategy (username) {
-  return knex('User').where('username', username)
-}
-
-function findUserByIdStrategy (id) {
-  return knex('User').where('userId', id)
 }
 
 function insertNewUser (user) {
