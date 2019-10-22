@@ -32,13 +32,28 @@ router.get('/login', function (req, res) {
 })
 
 router.post('/login', function (req, res, next) {
+  // validate correct login information
+  // check if there is a user with the username
+  // if there is an existing user, then compare passwords
+  // if there is no existing user, then return an error
+  // if passwords match, then login and redirect
   if (validLoginInformation(req.body)) {
     findUserByUsername(req.body)
-      .then(function (username) {
-        if (!username) {
-          res.send('there is no user with that username')
+      .then(function (userObj) {
+        console.log('This is after pulling from the db: ', userObj)
+        if (!userObj) {
+          res.send('There was a login error!')
         } else {
-          res.redirect(`/${username}`)
+          console.log(req.body.password)
+          bcrypt.compare(req.body.password, userObj.password)
+            .then(function (bool) {
+              console.log('Result of compare: ', bool)
+              if (bool) {
+                res.redirect(`/${userObj.username}`)
+              } else {
+                res.send('There was a login error!')
+              }
+            })
         }
       })
   } else {
@@ -110,8 +125,17 @@ function findUserByUsername (user) {
     username: username
   })
     .then(function (userArr) {
-      const singleUser = userArr[0]
-      return singleUser.username
+      // const singleUser = userArr[0]
+      // console.log(userArr)
+      const singleUser = {
+        username: userArr[0].username,
+        password: userArr[0].password
+      }
+      console.log(singleUser)
+      return singleUser
+    })
+    .catch(function (err) {
+      console.error(err)
     })
 }
 
