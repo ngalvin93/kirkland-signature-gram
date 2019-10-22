@@ -21,15 +21,15 @@ passport.use(new LocalStrategy(
         const user = result[0]
         console.log('Now we compare user.password: ' + user.password + ' with password: ' + password)
         bcrypt.compare(password, user.password)
-        .then(function (bool) {
-          if (user && bool) {
-            console.log('Password matched! ✨')
-            return done(null, user)
-          } else {
-            console.log('Password did not match! 🤮')
-            return done(null, false)
-          }
-        })
+          .then(function (bool) {
+            if (user && bool) {
+              console.log('Password matched! ✨')
+              return done(null, user)
+            } else {
+              console.log('Password did not match! 🤮')
+              return done(null, false)
+            }
+          })
       })
       .catch(function (error) {
         console.log('findUserByUsernameStrategy error: ', error)
@@ -65,8 +65,8 @@ app.use(session({
 }))
 
 // init passport
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 
 // routes below are prepended with /account from mounting on app.js
 router.get('/login', function (req, res) {
@@ -95,7 +95,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'login' 
             })
         }
       })
-      .catch(function(error){
+      .catch(function (error) {
         next(new Error(error))
       })
   } else {
