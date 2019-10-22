@@ -1,6 +1,6 @@
 const express = require('express')
 const passport = require('passport')
-// const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const session = require('express-session')
 const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
@@ -52,12 +52,26 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   if (validRegisterInformation(req.body)) {
-    insertNewUser(req.body)
-      .then(function (username) {
-        res.redirect(`/${username}`)
-      })
-      .catch(function (err) {
-        next(new Error(err))
+    bcrypt.hash(req.body.password, 10)
+      .then(function (hash) {
+        const fullname = req.body.fullname
+        const username = req.body.username
+        const email = req.body.email
+        const password = hash
+        const bcryptUser = {
+          fullName: fullname,
+          username: username,
+          email: email,
+          password: password
+        }
+        insertNewUser(bcryptUser)
+          .then(function (username) {
+            res.redirect(`/${username}`)
+          })
+          .catch(function (err) {
+            console.log(err)
+            next(new Error(err))
+          })
       })
   } else {
     res.send('something went wong!!!!')
@@ -102,15 +116,11 @@ function findUserByUsername (user) {
 }
 
 function insertNewUser (user) {
-  const fullname = user.fullname
-  const username = user.username
-  const email = user.email
-  const password = user.password
   return knex('User').insert({
-    fullName: fullname,
-    username: username,
-    email: email,
-    password: password
+    fullName: user.fullName,
+    username: user.username,
+    email: user.email,
+    password: user.password
   }, 'username')
 }
 
