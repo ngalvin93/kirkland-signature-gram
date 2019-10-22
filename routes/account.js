@@ -19,14 +19,14 @@ passport.use(new LocalStrategy(
       .then(function (result) {
         console.log('Heres what the query found in the db: ', result)
         const user = result[0]
-        console.log('Now we compare user.password: ' + user.password + 'with password: ' + password)
+        console.log('Now we compare user.password: ' + user.password + ' with password: ' + password)
         bcrypt.compare(password, user.password)
         .then(function (bool) {
           if (user && bool) {
-            console.log('Found a match! ✨')
+            console.log('Password matched! ✨')
             return done(null, user)
           } else {
-            console.log('Did not find a match 🤮')
+            console.log('Password did not match! 🤮')
             return done(null, false)
           }
         })
@@ -94,6 +94,9 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'login' 
               }
             })
         }
+      })
+      .catch(function(error){
+        next(new Error(error))
       })
   } else {
     next(new Error('Invalid information format'))
