@@ -11,15 +11,17 @@ Our task is to build a copy of an existing web application using the backend tec
 
 
 # Technologies Used
-| Name     | Description                                         |
-|----------|-----------------------------------------------------|
-| Pug      | Template engine implemented with JavaScript         |
-| Bcrypt   | Password hashing package                            |
-| Passport | Local authentication and OAuth                      |
-| Express  | Web framework for Node                              |
-| Node     | JavaScript runtime environment built on Chrome's V8 |
-| Knex     | SQL query builder                                   |
-| Postgres | Relational database management system               |
+| Name      | Description                                         |
+|-----------|-----------------------------------------------------|
+| Pug       | Template engine implemented with JavaScript         |
+| Bcrypt    | Password hashing package                            |
+| Passport  | Local authentication and OAuth                      |
+| Express   | Web framework for Node                              |
+| Node      | JavaScript runtime environment built on Chrome's V8 |
+| Knex      | SQL query builder                                   |
+| Postgres  | Relational database management system               |
+| Travis CI | Continuous integration service                      |
+| Standard  | Automatically review and format JavaScript code     |
 
 # Team Members
 
