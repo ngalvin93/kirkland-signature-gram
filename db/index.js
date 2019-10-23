@@ -75,6 +75,7 @@ module.exports = {
   findUserByUsernameStrategy,
   findUserByIdStrategy,
   getPasswordFromUsername,
+  findUserByUsername,
   insertNewUser,
   getAllPosts
 }
