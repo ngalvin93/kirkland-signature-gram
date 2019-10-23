@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 // const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
 const app = express()
-var { findUserByUsername, insertNewUser } = require('../db')
+var { getPasswordFromUsername, insertNewUser } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -80,7 +80,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'login',
   console.log('✅Verifying login information and posting to /login...')
   if (validLoginInformation(req.body)) {
     console.log('✅Login information is valid! Searching for the user in the database...')
-    findUserByUsername(req.body)
+    getPasswordFromUsername(req.body)
       .then(function (userObj) {
         console.log('✅Found this user in the database: ', userObj)
         if (!userObj) {
@@ -139,11 +139,27 @@ router.post('/register', function (req, res, next) {
 })
 
 router.get('/edit', function (req, res) {
-  res.send('Account settings')
+  console.log('🐷 Session content: ', req.session)
+  console.log('🐸 User content: ', req.user)
+  if (req.isAuthenticated()) {
+    res.json({
+      Name: req.user.fullName,
+      Username: req.user.username,
+      Email: req.user.email,
+      Bio: req.user.bio
+    })
+  } else {
+    res.redirect('login')
+  }
 })
 
 router.post('/edit', function (req, res) {
-  res.send('Change account settings')
+  if (req.isAuthenticated()) {
+    console.log('🌈 Editing the account information!')
+    res.send('Changed account information')
+  } else {
+    res.redirect('login')
+  }
 })
 
 router.get('/logout', function (req, res) {

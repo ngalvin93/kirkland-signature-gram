@@ -93,12 +93,12 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function (user, done) {
   console.log('👉🏻 SERIALIZING')
-  done(null, user.userId)
+  done(null, user)
 })
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function (user, done) {
   console.log('👉🏻 DESERIALIZING')
-  findUserByIdStrategy(id)
+  findUserByIdStrategy(user.userId)
     .then(function (user) {
       done(null, user[0])
     })
