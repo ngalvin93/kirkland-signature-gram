@@ -11,8 +11,6 @@ exports.up = function (knex) {
       .notNullable()
     table.string('caption', 250)
       .notNullable()
-    table.integer('like')
-      .notNullable()
     table.timestamps(true, true)
   })
 }
