@@ -1,10 +1,11 @@
 const express = require('express')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
-const session = require('express-session')
-const LocalStrategy = require('passport-local').Strategy
+// const session = require('express-session')
+// const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
 const app = express()
+var {findUserByUsername,insertNewUser} = require('../db') 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -145,10 +146,10 @@ router.post('/edit', function (req, res) {
   res.send('Change account settings')
 })
 
-router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+router.get('/logout', function (req, res) {
+  req.logout()
+  res.redirect('/')
+})
 
 // validation functions
 // --------------------------------------------------------------------------------------------------------

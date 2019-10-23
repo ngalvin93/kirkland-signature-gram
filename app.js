@@ -1,4 +1,4 @@
-var createError = require('http-errors')
+// var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
 const bcrypt = require('bcrypt')
@@ -13,7 +13,7 @@ require('dotenv').config()
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 
-var { findUserByUsernameStrategy, findUserByIdStrategy } = require("./db");
+var { findUserByUsernameStrategy, findUserByIdStrategy } = require('./db')
 
 var app = express()
 
@@ -54,7 +54,7 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500)
   res.render('error')
-})  
+})
 
 app.use('/', indexRouter)
 app.use('/account', accountRouter)

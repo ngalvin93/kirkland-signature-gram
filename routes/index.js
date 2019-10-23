@@ -7,11 +7,11 @@ const knex = require('knex')(knexConfig.development)
 router.get('/', function (req, res, next) {
   // here is the user object
   console.log('Here is the req session: ', req.user)
-  if(req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
     // res.render('home')
-    res.json(req.user);
+    res.json(req.user)
   } else {
-    res.redirect("account/login");
+    res.redirect('account/login')
   }
 })
 
