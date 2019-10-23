@@ -19,7 +19,7 @@ function findUserByIdStrategy (id) {
   return knex('User').where('userId', id)
 }
 
-function findUserByUsername (user) {
+function getPasswordFromUsername (user) {
   const username = user.username
   return knex.select().from('User').where({
     username: username
@@ -39,6 +39,19 @@ function findUserByUsername (user) {
     })
 }
 
+function findUserByUsername (username) {
+  return knex.select().from('User').where({
+    username: username
+  })
+    .then(function (results) {
+      if (results.length === 0) {
+        return null
+      } else {
+        return results[0]
+      }
+    })
+}
+
 function insertNewUser (user) {
   return knex('User').insert({
     fullName: user.fullName,
@@ -48,9 +61,21 @@ function insertNewUser (user) {
   }, 'username')
 }
 
+// function editBio (user) {
+//   return knex('User')
+//   .where({userId: user.userId})
+//   .update({ bio: 'Here is some more text...'})
+// }
+
+function getAllPosts () {
+  return knex.select().table('Post')
+}
+
 module.exports = {
   findUserByUsernameStrategy,
   findUserByIdStrategy,
+  getPasswordFromUsername,
   findUserByUsername,
-  insertNewUser
+  insertNewUser,
+  getAllPosts
 }
