@@ -8,10 +8,10 @@ router.get('/', function (req, res, next) {
   console.log('Here is the req session: ', req.user)
   if (req.isAuthenticated()) {
     getAllPosts()
-    .then(function(results){
-      console.log('All the posts here: ', results)
-      res.json(results)
-    })
+      .then(function (results) {
+        console.log('All the posts here: ', results)
+        res.json(results)
+      })
   } else {
     res.render('home')
   }
