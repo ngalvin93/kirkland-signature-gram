@@ -74,6 +74,7 @@ router.post('/register', function (req, res, next) {
   }
 })
 
+// clicks this on /:username
 router.get('/edit', function (req, res) {
   console.log('🐷 Session content: ', req.session)
   console.log('🐸 User content: ', req.user)
@@ -89,6 +90,7 @@ router.get('/edit', function (req, res) {
   }
 })
 
+// when on account/edit, user can edit basic information like bio
 router.post('/edit', function (req, res) {
   if (req.isAuthenticated()) {
     console.log('🌈 Editing the account information!')
@@ -98,6 +100,7 @@ router.post('/edit', function (req, res) {
   }
 })
 
+// user clicks a logout button
 router.get('/logout', function (req, res) {
   req.logout()
   res.redirect('/')
