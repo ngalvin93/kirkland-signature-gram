@@ -5,7 +5,14 @@ const knex = require('knex')(knexConfig.development)
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('home')
+  // here is the user object
+  console.log('Here is the req session: ', req.user)
+  if(req.isAuthenticated()) {
+    // res.render('home')
+    res.json(req.user);
+  } else {
+    res.redirect("account/login");
+  }
 })
 
 router.get('/:username', function (req, res, next) {
