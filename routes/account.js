@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 // const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
 const app = express()
-var {findUserByUsername,insertNewUser} = require('../db') 
+var { findUserByUsername, insertNewUser } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
