@@ -61,12 +61,6 @@ function insertNewUser (user) {
   }, 'username')
 }
 
-// function editBio (user) {
-//   return knex('User')
-//   .where({userId: user.userId})
-//   .update({ bio: 'Here is some more text...'})
-// }
-
 function getAllPosts () {
   return knex.select().table('Post')
 }

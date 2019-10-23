@@ -1,29 +1,50 @@
 var express = require('express')
 var router = express.Router()
-var { findUserByUsername } = require('../db')
+var { findUserByUsername, getAllPosts } = require('../db')
 
-/* GET home page. */
+// routes
+// --------------------------------------------------------------------------------------------------------------
 router.get('/', function (req, res, next) {
-  // here is the user object
   console.log('Here is the req session: ', req.user)
   if (req.isAuthenticated()) {
-    // res.render('home')
-    // if there is a session, render out all the posts
-    // getAllPosts
-    res.json(req.user)
+    getAllPosts()
+    .then(function(results){
+      console.log('All the posts here: ', results)
+      res.json(results)
+    })
   } else {
-    res.redirect('account/login')
+    res.render('home')
   }
 })
 
 router.get('/:username', function (req, res, next) {
-  findUserByUsername(req.params.username)
-    .then(function (user) {
-      res.send(user)
-    })
-    .catch(function (err) {
-      res.status(404).send('That username does not exist! Error: ' + err)
-    })
+  if (req.isAuthenticated() && (req.params.username === req.user.username)) {
+    findUserByUsername(req.params.username)
+      .then(function (user) {
+        res.json({
+          Status: 'Administrator',
+          'Full Name': user.fullName,
+          Username: user.username,
+          Bio: user.bio
+        })
+      })
+      .catch(function (err) {
+        next(new Error(err))
+      })
+  } else {
+    findUserByUsername(req.params.username)
+      .then(function (user) {
+        res.json({
+          Status: 'Visitor',
+          'Full Name': user.fullName,
+          Username: user.username,
+          Bio: user.bio
+        })
+      })
+      .catch(function (err) {
+        next(new Error(err))
+      })
+  }
 })
 
 module.exports = router
