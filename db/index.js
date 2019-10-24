@@ -65,11 +65,17 @@ function getAllPosts () {
   return knex.select().table('Post')
 }
 
+function findOrCreateUser (user) {
+  console.log('⭐️ Finding or creating a user...', user)
+  return true
+}
+
 module.exports = {
   findUserByUsernameStrategy,
   findUserByIdStrategy,
   getPasswordFromUsername,
   findUserByUsername,
   insertNewUser,
-  getAllPosts
+  getAllPosts,
+  findOrCreateUser
 }

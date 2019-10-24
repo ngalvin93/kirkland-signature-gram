@@ -13,7 +13,7 @@ var session = require('express-session')
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 
-var { findUserByUsernameStrategy, findUserByIdStrategy } = require('./db')
+var { findUserByUsernameStrategy, findUserByIdStrategy, findOrCreateUser } = require('./db')
 
 var app = express()
 
@@ -125,10 +125,31 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: '/auth/facebook/callback'
 },
-function (accessToken, refreshToken, profile, cb) {
-  return cb(null, profile)
-}
-))
+function (accessToken, refreshToken, profile, done) {
+  findOrCreateUser({
+    'facebook.id': profile.id 
+}, function(err, user) {
+    if (err) {
+        return done(err);
+    }
+    if (!user) {
+      return done(err)
+    }
+    else {
+      return done(err,user)
+    }
+})
+}))
+
+//   findOrCreateUser({ facebookId: profile.id }, function (err, user) {
+//     if (err) {
+//       return done(err)
+//     } else {
+//       done(null, user)
+//     }
+//   })
+// }
+// ))
 
 // // this is the session id associated with the id
 // passport.serializeUser(function (user, cb) {
