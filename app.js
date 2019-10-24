@@ -1,4 +1,5 @@
 // var createError = require('http-errors')
+require('dotenv').config()
 var express = require('express')
 var path = require('path')
 const bcrypt = require('bcrypt')
@@ -8,7 +9,6 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var session = require('express-session')
-require('dotenv').config()
 
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
