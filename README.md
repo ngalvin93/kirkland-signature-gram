@@ -22,6 +22,8 @@ Our task is to build a copy of an existing web application using the backend tec
 | Postgres  | Relational database management system               |
 | Travis CI | Continuous integration service                      |
 | Standard  | Automatically review and format JavaScript code     |
+| Dotenv    | Environmental variables                             |
+
 
 # Team Members
 
