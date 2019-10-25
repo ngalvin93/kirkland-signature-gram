@@ -36,12 +36,13 @@ router.get('/:username', function (req, res, next) {
   } else {
     findUserByUsername(req.params.username)
       .then(function (user) {
-        res.json({
-          Status: 'Visitor',
-          'Full Name': user.fullname,
-          Username: user.username,
-          Bio: user.bio
-        })
+        res.render('profile')
+        // res.json({
+        //   Status: 'Visitor',
+        //   'Full Name': user.fullname,
+        //   Username: user.username,
+        //   Bio: user.bio
+        // })
       })
       .catch(function (err) {
         next(new Error(err))
