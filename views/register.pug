@@ -1,30 +1,103 @@
+doctype html
 head
-  include head.pug
-  body    
-    include nav.pug
-    div.registerForm
-      if errors
-        ul.errors
-          each error in errors
-            div(class="alert alert-danger")= error.msg
-      form(method="post" action="register")
-        h3#emailHelp.form-text.text-muted Create an account
-        br
-        .form-group
-          label(for="fullname") Full Name
-          input#fullname.form-control(type="text", name="fullname", placeholder="Full Name")
-          br
-          label(for="username") Username
-          input#username.form-control(type="text", name="username", placeholder="Username")
-          br
-          label(for="email") Email
-          input#email.form-control(type="text", name="email", placeholder="Email")
-        .form-group
-          label(for="exampleInputPassword1") Password
-          input#exampleInputPassword1.form-control(type="password",name="password", placeholder="Password")
-
-        button.btn.btn-primary(type="submit") Submit
-          
-
-          
-//   script(src="/public/javascripts/upload.js")
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  title KSGram
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  link(rel='stylesheet' href='/stylesheets/style.css')
+.main-content
+  header
+    nav.nav
+      .nav__logo
+        a(href='/')
+          img.logo(src='/images/logo.svg' alt='logo' style='width: 35px;')
+      .nav__user
+        #modal.modal
+          .modal__content
+        .modal__overlay
+        //
+          <a
+          class="nav-i notifications modal__open"
+          href="/notifications"
+          title="Notifications"
+          ><div class="icon__notify"></div></a
+          ><a class="nav-i discover" href="/discover" title="Discover people"
+          ><div class="icon__discover"></div></a
+          ><a class="nav-i" href="/likes" title="My Likes"
+          ><div class="icon__heart"></div></a
+          >
+        a.nav-i.upload__image(href='/upload' title='Share an Image')
+          .icon__upload
+        a.nav-i(href='/[USERNAME]' title='My Profile')
+          .icon__account
+        a.nav-i.log(href='/logout' title='Log Out')
+          .icon__logout
+  article
+    .flash-messages
+    section
+      .content
+        .header
+          .header__img
+            .header__img-cont
+              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+          .header__data
+            .header__data--name
+              h2 [USERNAME]
+              form.follow(method='POST' action='/api/[USERNAME]/follow')
+                button.Following(type='submit') Following
+            .header__data--statistics
+              .posts
+                .number [POSTS]
+                span posts
+              a.followers.modal__open(href='/[USERNAME]/followers')
+                .number [FOLLOWERS]
+                span followers
+              a.following.modal__open(href='/[USERNAME]/following')
+                .number [FOLLOWING]
+                span following
+            .header__data--profile
+              span [BIO]
+        .gallery
+          a.gallery__img(href='/p/2307e48c8b5242b41f8c')
+            img(src='/uploads/gallery/2307e48c8b5242b41f8c.jpeg' alt='')
+            .hover__icons
+              .icon
+                .icon__heart
+                span.icon__count 14
+                .icon__comment
+                span.icon__count 12
+          a.gallery__img(href='/p/5eb31158b407bd0e377d')
+            img(src='/uploads/gallery/5eb31158b407bd0e377d.jpeg' alt='')
+            .hover__icons
+              .icon
+                .icon__heart
+                span.icon__count 7
+                .icon__comment
+                span.icon__count 6
+          a.gallery__img(href='/p/892ba56277cf564f4379')
+            img(src='/uploads/gallery/892ba56277cf564f4379.jpeg' alt='')
+            .hover__icons
+              .icon
+                .icon__heart
+                span.icon__count 10
+                .icon__comment
+                span.icon__count 0
+          a.gallery__img(href='/p/69aae1bb895aef040e26')
+            img(src='/uploads/gallery/69aae1bb895aef040e26.jpeg' alt='')
+            .hover__icons
+              .icon
+                .icon__heart
+                span.icon__count 10
+                .icon__comment
+                span.icon__count 2
+  footer
+    .footer
+      span
+        | &#x276E;&#x276F; by 
+        a(href='http://costco.com/') Kirkland Signature
+      span.date 2019
+script(src='/javascripts/bundle.js')
+script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')

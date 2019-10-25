@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var session = require('express-session')
 
+
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 
