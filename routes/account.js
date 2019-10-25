@@ -3,7 +3,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const app = express()
-var { getPasswordFromUsername, insertNewUser } = require('../db')
+var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -72,9 +72,25 @@ router.post('/register', function (req, res, next) {
           password: password
         }
         insertNewUser(bcryptUser)
-          // somewhere here a session for the new user should be created
-          .then(function (username) {
-            res.redirect(`/${username}`)
+          .then(function (id) {
+            console.log('This is the result of insertNewUser: ', typeof id)
+            return id[0]
+          })
+          .then(function (id) {
+            return findUserByIdStrategy(id)
+          })
+          .then(function (user) {
+            console.log('This is result of findUserByIdStrategy: ', typeof user)
+            // res.redirect(`/${username}`)
+            const userInfo = user[0]
+            req.login(userInfo, function (err) {
+              if (err) {
+                return next(err)
+              } else {
+                console.log('💥 LOGGING IN WITH NEW ACCOUNT', userInfo)
+                return res.redirect('/')
+              }
+            })
           })
           .catch(function (err) {
             console.log(err)
@@ -85,6 +101,13 @@ router.post('/register', function (req, res, next) {
     res.send('The information you entered is not valid format!')
   }
 })
+
+// req.login(user, function(err) {
+//   if (err) {
+//     return next(err);
+//   } else {
+//     return res.redirect('/users/' + req.user.username);
+//   })
 
 // clicks this on /:username
 router.get('/edit', function (req, res) {
