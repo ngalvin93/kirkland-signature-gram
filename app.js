@@ -14,7 +14,7 @@ var session = require('express-session')
 var indexRouter = require('./routes/index')
 var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 
-var { findUserByUsernameStrategy, findUserByIdStrategy } = require('./db')
+var { findUserByUsernameStrategy, findUserByIdStrategy, findOrCreateUser } = require('./db')
 
 var app = express()
 
@@ -57,8 +57,8 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-app.use('/', indexRouter)
 app.use('/account', accountRouter)
+app.use('/', indexRouter)
 
 // passport configuration
 passport.use(new LocalStrategy(
@@ -126,10 +126,34 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: '/auth/facebook/callback'
 },
-function (accessToken, refreshToken, profile, cb) {
-  return cb(null, profile)
-}
-))
+function (accessToken, refreshToken, profile, done) {
+  findOrCreateUser(profile)
+
+  done(null, profile)
+}))
+
+// { id: '10157801223336967',
+//   username: undefined,
+//   displayName: 'Alvin Ng',
+//   name:
+//    { familyName: undefined,
+//      givenName: undefined,
+//      middleName: undefined },
+//   gender: undefined,
+//   profileUrl: undefined,
+//   provider: 'facebook',
+//   _raw: '{"name":"Alvin Ng","id":"10157801223336967"}',
+//   _json: { name: 'Alvin Ng', id: '10157801223336967' } }
+
+//   findOrCreateUser({ facebookId: profile.id }, function (err, user) {
+//     if (err) {
+//       return done(err)
+//     } else {
+//       done(null, user)
+//     }
+//   })
+// }
+// ))
 
 // // this is the session id associated with the id
 // passport.serializeUser(function (user, cb) {

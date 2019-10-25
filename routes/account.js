@@ -12,6 +12,14 @@ router.get('/login', function (req, res) {
   res.render('login')
 })
 
+// function checkAuth (req, res, next) {
+//   if (req.isAuthenticated()) {
+//     next()
+//   } else {
+//     res.redirect('login')
+//   }
+// }
+
 router.post('/login', passport.authenticate('local', { failureRedirect: 'login', successRedirect: '/' }), function (req, res, next) {
   console.log('✅Verifying login information and posting to /login...')
   if (validLoginInformation(req.body)) {
@@ -47,7 +55,10 @@ router.get('/register', function (req, res) {
 })
 
 router.post('/register', function (req, res, next) {
+  console.log('--------------------------------------------------------------------')
+  console.log('Here is the request body: ', req.body)
   if (validRegisterInformation(req.body)) {
+    console.log('Here is the request body: ', req.body)
     bcrypt.hash(req.body.password, 10)
       .then(function (hash) {
         const fullname = req.body.fullname
@@ -61,6 +72,7 @@ router.post('/register', function (req, res, next) {
           password: password
         }
         insertNewUser(bcryptUser)
+          // somewhere here a session for the new user should be created
           .then(function (username) {
             res.redirect(`/${username}`)
           })
@@ -70,7 +82,7 @@ router.post('/register', function (req, res, next) {
           })
       })
   } else {
-    res.send('something went wong!!!!')
+    res.send('The information you entered is not valid format!')
   }
 })
 

@@ -65,11 +65,19 @@ function getAllPosts () {
   return knex.select().table('Post')
 }
 
+function findOrCreateUser (user) {
+  console.log('⭐️ Finding or creating a user with Facebook ID of: ', user)
+  return knex('User').insert({
+    fullName: user.displayName
+  })
+}
+
 module.exports = {
   findUserByUsernameStrategy,
   findUserByIdStrategy,
   getPasswordFromUsername,
   findUserByUsername,
   insertNewUser,
-  getAllPosts
+  getAllPosts,
+  findOrCreateUser
 }
