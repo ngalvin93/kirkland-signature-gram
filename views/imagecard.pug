@@ -1,0 +1,48 @@
+section
+.img-card(style='position: relative;')
+.img-card__header
+    .user
+    a.img(href='/[USERNAME]')
+        img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+    a.username(href='/[USERNAME]') [USERNAME]
+.img-card__image
+    img(src='/uploads/5eb31158b407bd0e377d.jpeg' alt='')
+.img-card__content
+    .content__likes
+    form.icon(method='POST' action='/api/like/5a6efeddc58d230c123708be')
+        button.icon__heart(type='submit' name='likes')
+    a.likes.modal__open(href='/p/5eb31158b407bd0e377d/likes') 7 likes
+    .content__caption
+    p.caption
+    time.img-card__date(datetime='2018-01-29T11:00:45.396Z')
+        p(style='margin: 5px 0;') 2 years ago
+    .content__comments
+    ul.comments
+        li
+        .row
+            a(href='/aaa') aaa
+            span a
+        li
+        .row
+            a(href='/aaa') aaa
+            span b
+        li
+        .row
+            a(href='/yellow') yellow
+            span asdasdasd
+        li
+        .row
+            a(href='/yellow') yellow
+            span test.
+        li
+        .row
+            a(href='/yellow') yellow
+            span this ws just a test.
+        li
+        .row
+            a(href='/[USERNAME]') [USERNAME]
+            span test
+        a.remove-comment(href='/comment/5dae566a159d6e073712c011/remove') &#x2715;
+.img-card__comment
+    form.comment(action='/api/comment/5a6efeddc58d230c123708be' method='POST')
+    input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
