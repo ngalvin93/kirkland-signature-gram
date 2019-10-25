@@ -18,12 +18,15 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/:username', function (req, res, next) {
+  console.log(req.params.username)
+  console.log(req.user)
+
   if (req.isAuthenticated() && (req.params.username === req.user.username)) {
     findUserByUsername(req.params.username)
       .then(function (user) {
         res.json({
           Status: 'Administrator',
-          'Full Name': user.fullName,
+          'Full Name': user.fullname,
           Username: user.username,
           Bio: user.bio
         })
@@ -36,7 +39,7 @@ router.get('/:username', function (req, res, next) {
       .then(function (user) {
         res.json({
           Status: 'Visitor',
-          'Full Name': user.fullName,
+          'Full Name': user.fullname,
           Username: user.username,
           Bio: user.bio
         })

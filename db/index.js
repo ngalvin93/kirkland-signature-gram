@@ -67,7 +67,9 @@ function getAllPosts () {
 
 function findOrCreateUser (user) {
   console.log('⭐️ Finding or creating a user with Facebook ID of: ', user)
-  return true
+  return knex('User').insert({
+    fullName: user.displayName
+  })
 }
 
 module.exports = {

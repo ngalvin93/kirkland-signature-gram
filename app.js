@@ -56,8 +56,8 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-app.use('/', indexRouter)
 app.use('/account', accountRouter)
+app.use('/', indexRouter)
 
 // passport configuration
 passport.use(new LocalStrategy(
@@ -126,20 +126,26 @@ passport.use(new FacebookStrategy({
   callbackURL: '/auth/facebook/callback'
 },
 function (accessToken, refreshToken, profile, done) {
-  findOrCreateUser({
-    'facebook.id': profile.id 
-}, function(err, user) {
-    if (err) {
-        return done(err);
-    }
-    if (!user) {
-      return done(err)
-    }
-    else {
-      return done(err,user)
-    }
-})
+
+  findOrCreateUser(profile);
+
+  done(null, profile);
 }))
+
+
+// { id: '10157801223336967',
+//   username: undefined,
+//   displayName: 'Alvin Ng',
+//   name:
+//    { familyName: undefined,
+//      givenName: undefined,
+//      middleName: undefined },
+//   gender: undefined,
+//   profileUrl: undefined,
+//   provider: 'facebook',
+//   _raw: '{"name":"Alvin Ng","id":"10157801223336967"}',
+//   _json: { name: 'Alvin Ng', id: '10157801223336967' } }
+
 
 //   findOrCreateUser({ facebookId: profile.id }, function (err, user) {
 //     if (err) {
