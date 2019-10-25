@@ -58,7 +58,7 @@ function insertNewUser (user) {
     username: user.username,
     email: user.email,
     password: user.password
-  }, 'username')
+  }, 'userId')
 }
 
 function getAllPosts () {

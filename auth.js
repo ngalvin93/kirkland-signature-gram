@@ -36,12 +36,12 @@ const strategy = new LocalStrategy(
 passport.use(strategy)
 
 passport.serializeUser(function (user, done) {
-  console.log('👉🏻 SERIALIZING')
+  console.log('👉🏻 SERIALIZING USER: ' + user)
   done(null, user)
 })
 
 passport.deserializeUser(function (user, done) {
-  console.log('👉🏻 DESERIALIZING')
+  console.log('👉🏻 DESERIALIZING USER: ' + user)
   findUserByIdStrategy(user.userId)
     .then(function (user) {
       done(null, user[0])
