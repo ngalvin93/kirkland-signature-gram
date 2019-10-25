@@ -21,33 +21,34 @@ router.get('/login', function (req, res) {
 // }
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'login', successRedirect: '/' }), function (req, res, next) {
-  console.log('✅Verifying login information and posting to /login...')
-  if (validLoginInformation(req.body)) {
-    console.log('✅Login information is valid! Searching for the user in the database...')
-    getPasswordFromUsername(req.body)
-      .then(function (userObj) {
-        console.log('✅Found this user in the database: ', userObj)
-        if (!userObj) {
-          res.send('There was a login error!')
-        } else {
-          console.log(req.body.password)
-          bcrypt.compare(req.body.password, userObj.password)
-            .then(function (bool) {
-              console.log('Result of compare: ', bool)
-              if (bool) {
-                res.redirect(`/${userObj.username}`)
-              } else {
-                res.send('There was a login error!')
-              }
-            })
-        }
-      })
-      .catch(function (error) {
-        next(new Error(error))
-      })
-  } else {
-    next(new Error('Invalid information format'))
-  }
+//   console.log('✅Verifying login information and posting to /login...')
+//   if (validLoginInformation(req.body)) {
+//     console.log('✅Login information is valid! Searching for the user in the database...')
+//     getPasswordFromUsername(req.body)
+//       .then(function (userObj) {
+//         console.log('✅Found this user in the database: ', userObj)
+//         if (!userObj) {
+//           res.send('There was a login error!')
+//         } else {
+//           console.log(req.body.password)
+//           bcrypt.compare(req.body.password, userObj.password)
+//             .then(function (bool) {
+//               console.log('Result of compare: ', bool)
+//               if (bool) {
+//                 res.redirect(`/${userObj.username}`)
+//               } else {
+//                 res.send('There was a login error!')
+//               }
+//             })
+//         }
+//       })
+//       .catch(function (error) {
+//         next(new Error(error))
+//       })
+//   } else {
+//     next(new Error('Invalid information format'))
+//   }
+// })
 })
 
 router.get('/register', function (req, res) {
