@@ -9,18 +9,17 @@ router.get('/', function (req, res, next) {
   if (req.isAuthenticated()) {
     getAllPosts()
       .then(function (results) {
-        console.log('All the posts here: ', results)
+        // console.log('All the posts here: ', results)
         res.json(results)
       })
   } else {
-    res.render('home')
+    res.render('login')
   }
 })
 
 router.get('/:username', function (req, res, next) {
-  console.log(req.params.username)
-  console.log(req.user)
-
+  console.log('⚡️ Request params: ', req.params.username)
+  console.log('⚡️ Request user session: ', req.user)
   if (req.isAuthenticated() && (req.params.username === req.user.username)) {
     findUserByUsername(req.params.username)
       .then(function (user) {

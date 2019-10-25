@@ -17,13 +17,13 @@ section
     a.btn.btn-block.btn-social.btn-facebook(href='/auth/facebook')
       span.fa.fa-facebook
       | Sign in with Facebook
-    form.form__login(action='/login' method='POST')
+    form.form__login(action='/account/login' method='POST')
       input(type='text' name='username' placeholder='Username' required='required')
       input(type='password' name='password' placeholder='Password' required='required')
       .forgot-pass
         a(href='/reset') Forgot?
       input.button(type='submit' value='Log In')
-    a.account_link(href='/register') Don&apos;t have an account?
+    a.account_link(href='/account/register') Don&apos;t have an account?
 //- script(src='/javascripts/bundle.js')
 script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
