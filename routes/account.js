@@ -82,7 +82,7 @@ router.post('/register', function (req, res, next) {
           .then(function (user) {
             console.log('This is result of findUserByIdStrategy: ', typeof user)
             // res.redirect(`/${username}`)
-            let userInfo = user[0]
+            const userInfo = user[0]
             req.login(userInfo, function (err) {
               if (err) {
                 return next(err)
@@ -103,8 +103,8 @@ router.post('/register', function (req, res, next) {
 })
 
 // req.login(user, function(err) {
-//   if (err) { 
-//     return next(err); 
+//   if (err) {
+//     return next(err);
 //   } else {
 //     return res.redirect('/users/' + req.user.username);
 //   })
