@@ -36,7 +36,11 @@ router.get('/:username', function (req, res, next) {
   } else {
     findUserByUsername(req.params.username)
       .then(function (user) {
-        res.render('profile')
+        res.render('profile', {
+          user: req.user,
+          profile: req.params.username
+        })
+        // res.render('profile')
         // res.json({
         //   Status: 'Visitor',
         //   'Full Name': user.fullname,

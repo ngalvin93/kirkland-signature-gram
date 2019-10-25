@@ -1,3 +1,5 @@
+- var currentUser = user.username
+
 doctype html
 head
   meta(charset='UTF-8')
@@ -29,7 +31,7 @@ head
           >
         a.nav-i.upload__image(href='/upload' title='Share an Image')
           .icon__upload
-        a.nav-i(href='/[USERNAME]' title='My Profile')
+        a.nav-i(href='/' + currentUser + '' title='My Profile')
           .icon__account
         a.nav-i.log(href='/logout' title='Log Out')
           .icon__logout
@@ -43,7 +45,7 @@ head
               img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
           .header__data
             .header__data--name
-              h2 [USERNAME]
+              h2 #{profile} 
               form.follow(method='POST' action='/api/[USERNAME]/follow')
                 button.Following(type='submit') Following
             .header__data--statistics
@@ -53,7 +55,7 @@ head
               a.followers.modal__open(href='/[USERNAME]/followers')
                 .number [FOLLOWERS]
                 span followers
-              a.following.modal__open(href='/[USERNAME]/following')
+              a.following.modal__open(href='/' + currentUser + '/following')
                 .number [FOLLOWING]
                 span following
             .header__data--profile
