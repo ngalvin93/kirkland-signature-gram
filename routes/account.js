@@ -12,14 +12,13 @@ router.get('/login', function (req, res) {
   res.render('login')
 })
 
-function checkAuth(req, res, next) {
-  if (req.isAuthenticated()) {
-    next()
-  } else {
-    res.redirect('login')
-  }
-
-}
+// function checkAuth (req, res, next) {
+//   if (req.isAuthenticated()) {
+//     next()
+//   } else {
+//     res.redirect('login')
+//   }
+// }
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'login', successRedirect: '/' }), function (req, res, next) {
   console.log('✅Verifying login information and posting to /login...')
@@ -53,7 +52,6 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'login',
 
 router.get('/register', function (req, res) {
   res.render('register')
-  return
 })
 
 router.post('/register', function (req, res, next) {

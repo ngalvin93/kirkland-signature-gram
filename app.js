@@ -126,12 +126,10 @@ passport.use(new FacebookStrategy({
   callbackURL: '/auth/facebook/callback'
 },
 function (accessToken, refreshToken, profile, done) {
+  findOrCreateUser(profile)
 
-  findOrCreateUser(profile);
-
-  done(null, profile);
+  done(null, profile)
 }))
-
 
 // { id: '10157801223336967',
 //   username: undefined,
@@ -145,7 +143,6 @@ function (accessToken, refreshToken, profile, done) {
 //   provider: 'facebook',
 //   _raw: '{"name":"Alvin Ng","id":"10157801223336967"}',
 //   _json: { name: 'Alvin Ng', id: '10157801223336967' } }
-
 
 //   findOrCreateUser({ facebookId: profile.id }, function (err, user) {
 //     if (err) {
