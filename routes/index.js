@@ -23,12 +23,16 @@ router.get('/:username', function (req, res, next) {
   if (req.isAuthenticated() && (req.params.username === req.user.username)) {
     findUserByUsername(req.params.username)
       .then(function (user) {
-        res.json({
-          Status: 'Administrator',
-          'Full Name': user.fullname,
-          Username: user.username,
-          Bio: user.bio
+        res.render('profile', {
+          user: req.user,
+          profile: req.params.username
         })
+        // res.json({
+        //   Status: 'Administrator',
+        //   'Full Name': user.fullname,
+        //   Username: user.username,
+        //   Bio: user.bio
+        // })
       })
       .catch(function (err) {
         next(new Error(err))
