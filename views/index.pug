@@ -1,17 +1,26 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-  form(method="POST" action="/auth")
-    div.form-group
-      label(for="first") First
-      input#first.form-group(type="text", name="first")
-    div.form-group
-      label(for="last") Last
-      input#last.form-group(type="text", name="last")
-    div.form-group
-      label(for="pw") Password
-      input#pw.form-group(type="password", name="password")
-    button(type="submit") Login
-  a(href="/signup") Create an account
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  title KSGram
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  link(rel='stylesheet' href='/stylesheets/style.css')
+section
+  .flash-messages
+  .form
+    .header
+      img.logo(src='/images/logo.svg' alt='logo')
+      h1 KSGram
+    p.form__message Sign up to see photos from your friends.
+    form.form__register(action='/register' method='POST')
+      input(type='email' name='email' placeholder='Email Address' required='required')
+      input(type='text' name='fullname' placeholder='Full name' required='required')
+      input(type='text' name='username' placeholder='Username' required='required')
+      input(type='password' name='password' placeholder='Password' required='required')
+      input(type='password' name='password-confirm' placeholder='Confirm Password' required='required')
+      input.button(type='submit' value='Sign up')
+    a.account_link(href='/login') Have an account?
+script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')

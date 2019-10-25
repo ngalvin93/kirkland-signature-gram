@@ -36,61 +36,39 @@ head
   article
     .flash-messages
     section
-      .content
-        .header
-          .header__img
-            .header__img-cont
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
-          .header__data
-            .header__data--name
-              h2 [USERNAME]
-              form.follow(method='POST' action='/api/[USERNAME]/follow')
-                button.Following(type='submit') Following
-            .header__data--statistics
-              .posts
-                .number [POSTS]
-                span posts
-              a.followers.modal__open(href='/[USERNAME]/followers')
-                .number [FOLLOWERS]
-                span followers
-              a.following.modal__open(href='/[USERNAME]/following')
-                .number [FOLLOWING]
-                span following
-            .header__data--profile
-              span [BIO]
-        .gallery
-          a.gallery__img(href='/p/2307e48c8b5242b41f8c')
-            img(src='/uploads/gallery/2307e48c8b5242b41f8c.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 14
-                .icon__comment
-                span.icon__count 12
-          a.gallery__img(href='/p/5eb31158b407bd0e377d')
-            img(src='/uploads/gallery/5eb31158b407bd0e377d.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 7
-                .icon__comment
-                span.icon__count 6
-          a.gallery__img(href='/p/892ba56277cf564f4379')
-            img(src='/uploads/gallery/892ba56277cf564f4379.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 10
-                .icon__comment
-                span.icon__count 0
-          a.gallery__img(href='/p/69aae1bb895aef040e26')
-            img(src='/uploads/gallery/69aae1bb895aef040e26.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 10
-                .icon__comment
-                span.icon__count 2
+      .current-img
+        .prev-img
+          a.arrow.prev(href='/p/[PREVIOUS POSTID]') &#x276E;
+        section
+          .img-card(style='position: relative;')
+            .img-card__header
+              .user
+                a.img(href='/[USERNAME]')
+                  img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+                a.(class='[USERNAME]' href='/[USERNAME]') [USERNAME]
+            .img-card__image
+              img(src='/uploads/892ba56277cf564f4379.jpeg' alt='')
+            .img-card__content
+              .content__likes
+                form.icon(method='POST' action='/api/like/[POSTID]')
+                  button.icon__heart(type='submit' name='likes')
+                a.likes.modal__open(href='/p/[POSTID]/likes') [LIKES] likes
+              .content__caption
+                p.caption [CAPTION]
+                time.img-card__date(datetime='2018-01-29T10:54:41.542Z')
+                  p(style='margin: 5px 0;') 2 years ago
+              .content__comments
+                ul.comments
+                  li
+                    .row
+                      a(href='/[USERNAME]') [USERNAME]
+                      span test
+                    a.remove-comment(href='/comment/[POSTID]/remove') &#x2715;
+            .img-card__comment
+              form.comment(action='/api/comment/[POSTID]' method='POST')
+                input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+        .next-img
+          a.arrow.next(href='/p/[NEXT POSTID]') &#x276F; 
   footer
     .footer
       span

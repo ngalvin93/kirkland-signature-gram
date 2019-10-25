@@ -1,25 +1,30 @@
+doctype html
 head
-  include head.pug
-  body    
-    include nav.pug
-    div.registerForm
-      if errors
-        ul.errors
-          each error in errors
-            div(class="alert alert-danger")= error.msg
-      form(method="post" action="login")
-        h3#emailHelp.form-text.text-muted Welcome back
-        br
-        .form-group
-          label(for="exampleInputUsername1") Username
-          input#exampleInputUsername1.form-control(type="text", name="username")
-        .form-group
-          label(for="exampleInputPassword1") Password
-          input#exampleInputPassword1.form-control(type="password", name="password")
-
-        button.btn.btn-primary(type="submit") Submit
-      a(href='/auth/facebook') Login with Facebook
-          
-
-          
-//   script(src="/public/javascripts/upload.js")
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  title KSGram
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  link(rel='stylesheet' href='/stylesheets/style.css')
+  link(rel='stylesheet' href='dist/bootstrap-social.css')
+  link(rel='stylesheet' href='dist/font-awesome.css')
+section
+  .flash-messages
+  .form
+    .header
+      img.logo(src='/images/logo.svg' alt='logo')
+      h1 KSGram
+    a.btn.btn-block.btn-social.btn-facebook(href='/auth/facebook')
+      span.fa.fa-facebook
+      | Sign in with Facebook
+    form.form__login(action='/login' method='POST')
+      input(type='text' name='username' placeholder='Username' required='required')
+      input(type='password' name='password' placeholder='Password' required='required')
+      .forgot-pass
+        a(href='/reset') Forgot?
+      input.button(type='submit' value='Log In')
+    a.account_link(href='/register') Don&apos;t have an account?
+script(src='/javascripts/bundle.js')
+script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
