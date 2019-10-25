@@ -65,6 +65,10 @@ function getAllPosts () {
   return knex.select().table('Post')
 }
 
+// function getAllPostsFromID (userid) {
+//   return knex.select().table('Post').where('userid', id);
+// }
+
 function findOrCreateUser (user) {
   console.log('⭐️ Finding or creating a user with Facebook info of: ', user)
   return knex('User').insert({
