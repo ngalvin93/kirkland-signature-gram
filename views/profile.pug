@@ -71,7 +71,7 @@ head
             .header__data--profile
               span= bio
         .gallery
-          if postsArr
+          if postsArr.length > 1
             each post in postsArr
               a.gallery__img(href='/p/2307e48c8b5242b41f8c')
                 img(src=post.imagePath alt='')
