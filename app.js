@@ -1,19 +1,19 @@
 // var createError = require('http-errors')
 require('dotenv').config()
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
-var passport = require('./auth')
-var FacebookStrategy = require('passport-facebook').Strategy
-var session = require('express-session')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const passport = require('./auth')
+const FacebookStrategy = require('passport-facebook').Strategy
+const session = require('express-session')
 
-var accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
-var indexRouter = require('./routes/index')
+const accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
+const indexRouter = require('./routes/index')
 
-var { findOrCreateUser } = require('./db')
+const { findOrCreateUser } = require('./db')
 
-var app = express()
+const app = express()
 
 const port = process.env.PORT || 3000
 
