@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/ngalvin93/kirkland-signature-gram.svg?branch=master)](https://travis-ci.org/ngalvin93/kirkland-signature-gram)
 # Kirkland's Signature-gram
 
+![KS Logo](https://github.com/ngalvin93/kirkland-signature-gram/kslogo.png)
+
 This is our final project for "Phase 2" of the Flex course for DigitalCrafts Houston. It is focused on backend technologies using Node.js.
 
 
