@@ -13,6 +13,7 @@ exports.up = function (knex) {
     table.string('password', 60)
       .notNullable()
     table.string('bio', 250)
+    table.string('profilePicture', 60)
     table.timestamps(true, true)
   })
 }

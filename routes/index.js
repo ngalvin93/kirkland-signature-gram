@@ -37,6 +37,7 @@ router.get('/:username', function (req, res, next) {
           user: req.user.username,
           profile: req.user.fullName,
           bio: req.user.bio,
+          pic: req.user.profilePicture,
           posts: postsArr
         })
       })
@@ -51,7 +52,8 @@ router.get('/:username', function (req, res, next) {
           res.render('profile', {
             user: req.user.username,
             profile: user.fullName,
-            bio: user.bio
+            bio: user.bio,
+            pic: user.profilePicture
           })
         } else {
           res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')
@@ -68,7 +70,8 @@ router.get('/:username', function (req, res, next) {
           res.render('profile', {
             user: req.user,
             profile: user.fullName,
-            bio: user.bio
+            bio: user.bio,
+            pic: user.profilePicture
           })
         } else {
           res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')

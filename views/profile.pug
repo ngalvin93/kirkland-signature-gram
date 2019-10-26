@@ -1,5 +1,6 @@
 - var currentUser = user
 - var postsArr = posts
+- var profilePicUrl = pic
 
 doctype html
 head
@@ -45,7 +46,10 @@ head
         .header
           .header__img
             .header__img-cont
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+              if profilePicUrl
+                img(src=profilePicUrl alt="'s' avatar")
+              else
+                img(src='/uploads/pro0.jpg' alt="'s' avatar")
           .header__data
             .header__data--name
               h2 #{profile} 
@@ -53,7 +57,10 @@ head
                 button.Following(type='submit') Following
             .header__data--statistics
               .posts
-                .number 4
+                if postsArr
+                  .number #{postsArr.length}
+                else
+                  .number 3
                 span posts
               a.followers.modal__open(href='/' + profile + '/followers')
                 .number 729
