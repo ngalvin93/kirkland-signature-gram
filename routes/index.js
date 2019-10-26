@@ -9,8 +9,11 @@ router.get('/', function (req, res, next) {
   if (req.isAuthenticated()) {
     getAllPosts()
       .then(function (results) {
-        // console.log('All the posts here: ', results)
-        res.render('home')
+        console.log('All the posts here: ', results)
+        // var resultsString = JSON.stringify(results)
+        res.render('home', {
+          posts: results
+        })
       })
   } else {
     res.render('login')
