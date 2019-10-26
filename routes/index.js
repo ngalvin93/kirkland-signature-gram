@@ -25,24 +25,45 @@ router.get('/', function (req, res, next) {
 router.get('/:username', function (req, res, next) {
   console.log('⚡️ Request params: ', req.params.username)
   console.log('⚡️ Request user session: ', req.user)
+  // personal profile
   if (req.isAuthenticated() && (req.params.username === req.user.username)) {
     findUserByUsername(req.params.username)
       .then(function (user) {
         res.render('profile', {
           user: req.user.username,
-          profile: req.params.username
+          profile: req.user.fullName,
+          bio: req.user.bio
         })
       })
       .catch(function (err) {
         next(new Error(err))
       })
+  // signed in user visiting another profile
+  } else if (req.isAuthenticated()) {
+    findUserByUsername(req.params.username)
+      .then(function (user) {
+        if (user) {
+          res.render('profile', {
+            user: req.user.username,
+            profile: user.fullName,
+            bio: user.bio
+          })
+        } else {
+          res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')
+        }
+      })
+      .catch(function (err) {
+        next(new Error(err))
+      })
+  // not signed in visiting a profile
   } else {
     findUserByUsername(req.params.username)
       .then(function (user) {
         if (user) {
           res.render('profile', {
-            user: req.params.username,
-            profile: req.params.username
+            user: '/',
+            profile: user.fullName,
+            bio: user.bio
           })
         } else {
           res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')
