@@ -65,9 +65,9 @@ function getAllPosts () {
   return knex.select().table('Post')
 }
 
-// function getAllPostsFromID (userid) {
-//   return knex.select().table('Post').where('userid', id);
-// }
+function getAllPostsFromID (userid) {
+  return knex.select().table('Post').where('userId', userid)
+}
 
 function findOrCreateUser (user) {
   console.log('⭐️ Finding or creating a user with Facebook info of: ', user)
@@ -83,5 +83,6 @@ module.exports = {
   findUserByUsername,
   insertNewUser,
   getAllPosts,
-  findOrCreateUser
+  findOrCreateUser,
+  getAllPostsFromID
 }

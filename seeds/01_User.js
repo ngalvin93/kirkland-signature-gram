@@ -4,7 +4,7 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('User').insert([
-        { fullName: 'Kirkland Signature', username: 'kirksig', email: 'kirkland@gmail.com', password: '123456', bio: 'The original.' },
+        { fullName: 'Kirkland Signature', username: 'kirksig', email: 'kirkland@gmail.com', password: '123456', bio: '💥 The original since 1923. #costco #keeps #the #cost #low' },
         { fullName: 'Mariah Carey', username: 'mcarey', email: 'mcarey@music.com', password: 'abcdef', bio: 'I sing falseto notes very good.' },
         { fullName: 'Frank Ocean', username: 'franko', email: 'endless@music.com', password: '654321', bio: 'I am a singer/song writer.' },
         { fullName: 'Selena Gomez', username: 'sgomez', email: 'selenag@gmail.com', password: 'fedcba', bio: 'Disney kid for life!!' },

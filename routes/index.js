@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var { findUserByUsername, getAllPosts } = require('../db')
+var { findUserByUsername, getAllPosts, getAllPostsFromID } = require('../db')
 
 // routes
 // --------------------------------------------------------------------------------------------------------------
@@ -29,10 +29,15 @@ router.get('/:username', function (req, res, next) {
   if (req.isAuthenticated() && (req.params.username === req.user.username)) {
     findUserByUsername(req.params.username)
       .then(function (user) {
+        return getAllPostsFromID(user.userId)
+      })
+      .then(function (postsArr) {
+        console.log('This new user ✅: ', postsArr)
         res.render('profile', {
           user: req.user.username,
           profile: req.user.fullName,
-          bio: req.user.bio
+          bio: req.user.bio,
+          posts: postsArr
         })
       })
       .catch(function (err) {
