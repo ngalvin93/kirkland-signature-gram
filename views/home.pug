@@ -1,4 +1,6 @@
 - var postArr = posts
+- var userObj = user
+- var profileUrl = userObj.username
 
 doctype html
 head
@@ -31,9 +33,9 @@ head
           >
         a.nav-i.upload__image(href='/upload' title='Share an Image')
           .icon__upload
-        a.nav-i(href='/[CURRENT USERNAME]' title='My Profile')
+        a.nav-i(href= profileUrl title='My Profile')
           .icon__account
-        a.nav-i.log(href='/logout' title='Log Out')
+        a.nav-i.log(href='/account/logout' title='Log Out')
           .icon__logout
   article
     .flash-messages
@@ -47,7 +49,7 @@ head
               a.username(href='/[USERNAME]') [USERNAME]
             a.remove-image(href='/p/[POSTID]/remove') remove image
           .img-card__image
-            img(src='/uploads/6cfc035fee0950025d2c.jpeg' alt='caption')
+            img(src= post.imagePath alt='Uploaded image')
           .img-card__content
             .content__likes
               form.icon(method='POST' action='/api/like/5dabf129159d6e073712c00e')
@@ -252,9 +254,14 @@ script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
 script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
 
+
 //- - var postArr = posts
 //-     ul
 //-       each post in postArr
 //-         li
 //-           p= post.imagePath
 //-           p= post.caption
+//- - var userObj = user
+//-     p= userObj.fullName
+//-     p= userObj.username
+//-     p= userObj.email

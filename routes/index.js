@@ -10,9 +10,11 @@ router.get('/', function (req, res, next) {
     getAllPosts()
       .then(function (results) {
         console.log('All the posts here: ', results)
+        console.log('Req.user: ', req.user.username)
         // var resultsString = JSON.stringify(results)
         res.render('home', {
-          posts: results
+          posts: results,
+          user: req.user
         })
       })
   } else {
