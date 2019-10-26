@@ -49,12 +49,16 @@ router.get('/:username', function (req, res, next) {
     findUserByUsername(req.params.username)
       .then(function (user) {
         if (user) {
-          res.render('profile', {
-            user: req.user.username,
-            profile: user.fullName,
-            bio: user.bio,
-            pic: user.profilePicture
-          })
+          getAllPostsFromID(user.userId)
+            .then(function (postsArr) {
+              res.render('profile', {
+                user: req.user.username,
+                profile: user.fullName,
+                bio: user.bio,
+                pic: user.profilePicture,
+                posts: postsArr
+              })
+            })
         } else {
           res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')
         }
@@ -67,12 +71,16 @@ router.get('/:username', function (req, res, next) {
     findUserByUsername(req.params.username)
       .then(function (user) {
         if (user) {
-          res.render('profile', {
-            user: req.user,
-            profile: user.fullName,
-            bio: user.bio,
-            pic: user.profilePicture
-          })
+          getAllPostsFromID(user.userId)
+            .then(function (postsArr) {
+              res.render('profile', {
+                user: req.user,
+                profile: user.fullName,
+                bio: user.bio,
+                pic: user.profilePicture,
+                posts: postsArr
+              })
+            })
         } else {
           res.send('USER NOT FOUND! TRY ANOTHER USERNAME.')
         }
