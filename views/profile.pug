@@ -1,4 +1,5 @@
 - var currentUser = user
+- var postsArr = posts
 
 doctype html
 head
@@ -31,10 +32,12 @@ head
           >
         //- a.nav-i.upload__image(href='/upload' title='Share an Image')
         //-   .icon__upload
-        a.nav-i(href=currentUser title='My Profile')
-          .icon__account
-        a.nav-i.log(href='/account/logout' title='Log Out')
-          .icon__logout
+        if user
+          a.nav-i(href=currentUser title='My Profile')
+            .icon__account
+          a.nav-i.log(href='/account/logout' title='Log Out')
+            .icon__logout
+        else
   article
     .flash-messages
     section
@@ -50,49 +53,52 @@ head
                 button.Following(type='submit') Following
             .header__data--statistics
               .posts
-                .number [POSTS]
+                .number 4
                 span posts
               a.followers.modal__open(href='/' + profile + '/followers')
-                .number [FOLLOWERS]
+                .number 729
                 span followers
               a.following.modal__open(href='/' + profile + '/following')
-                .number [FOLLOWING]
+                .number 68
                 span following
             .header__data--profile
               span= bio
         .gallery
-          a.gallery__img(href='/p/2307e48c8b5242b41f8c')
-            img(src='/uploads/gallery/2307e48c8b5242b41f8c.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 14
-                .icon__comment
-                span.icon__count 12
-          a.gallery__img(href='/p/5eb31158b407bd0e377d')
-            img(src='/uploads/gallery/5eb31158b407bd0e377d.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 7
-                .icon__comment
-                span.icon__count 6
-          a.gallery__img(href='/p/892ba56277cf564f4379')
-            img(src='/uploads/gallery/892ba56277cf564f4379.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 10
-                .icon__comment
-                span.icon__count 0
-          a.gallery__img(href='/p/69aae1bb895aef040e26')
-            img(src='/uploads/gallery/69aae1bb895aef040e26.jpeg' alt='')
-            .hover__icons
-              .icon
-                .icon__heart
-                span.icon__count 10
-                .icon__comment
-                span.icon__count 2
+          if postsArr
+            each post in postsArr
+              a.gallery__img(href='/p/2307e48c8b5242b41f8c')
+                img(src=post.imagePath alt='')
+                .hover__icons
+                  .icon
+                    .icon__heart
+                    span.icon__count 14
+                    .icon__comment
+                    span.icon__count 12
+          else
+            a.gallery__img(href='/p/5eb31158b407bd0e377d')
+              img(src='/uploads/gallery/5eb31158b407bd0e377d.jpeg' alt='')
+              .hover__icons
+                .icon
+                  .icon__heart
+                  span.icon__count 7
+                  .icon__comment
+                  span.icon__count 6
+            a.gallery__img(href='/p/892ba56277cf564f4379')
+              img(src='/uploads/gallery/892ba56277cf564f4379.jpeg' alt='')
+              .hover__icons
+                .icon
+                  .icon__heart
+                  span.icon__count 10
+                  .icon__comment
+                  span.icon__count 0
+            a.gallery__img(href='/p/69aae1bb895aef040e26')
+              img(src='/uploads/gallery/69aae1bb895aef040e26.jpeg' alt='')
+              .hover__icons
+                .icon
+                  .icon__heart
+                  span.icon__count 10
+                  .icon__comment
+                  span.icon__count 2
   footer
     .footer
       span
