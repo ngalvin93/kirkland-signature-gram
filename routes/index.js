@@ -51,6 +51,7 @@ router.get('/:username', function (req, res, next) {
         if (user) {
           getAllPostsFromID(user.userId)
             .then(function (postsArr) {
+              console.log('Post array: ', postsArr)
               res.render('profile', {
                 user: req.user.username,
                 profile: user.fullName,
