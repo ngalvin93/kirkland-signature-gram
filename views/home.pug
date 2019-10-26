@@ -33,7 +33,7 @@ head
           >
         //- a.nav-i.upload__image(href='/upload' title='Share an Image')
         //-   .icon__upload
-        a.nav-i(href= profileUrl title='My Profile')
+        a.nav-i(href=profileUrl title='My Profile')
           .icon__account
         a.nav-i.log(href='/account/logout' title='Log Out')
           .icon__logout
@@ -49,7 +49,7 @@ head
               a.username(href='/[USERNAME]') [USERNAME]
             //- a.remove-image(href='/p/[POSTID]/remove') remove image
           .img-card__image
-            img(src= post.imagePath alt='Uploaded image')
+            img(src=post.imagePath alt='Uploaded image')
           .img-card__content
             .content__likes
               form.icon(method='POST' action='/api/like/5dabf129159d6e073712c00e')

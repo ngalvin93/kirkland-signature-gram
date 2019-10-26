@@ -61,7 +61,7 @@ router.get('/:username', function (req, res, next) {
       .then(function (user) {
         if (user) {
           res.render('profile', {
-            user: '/',
+            user: req.user,
             profile: user.fullName,
             bio: user.bio
           })
