@@ -29,7 +29,7 @@ router.get('/:username', function (req, res, next) {
     findUserByUsername(req.params.username)
       .then(function (user) {
         res.render('profile', {
-          user: req.user,
+          user: req.user.username,
           profile: req.params.username
         })
       })
