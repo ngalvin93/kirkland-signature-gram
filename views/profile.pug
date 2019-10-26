@@ -31,10 +31,12 @@ head
           >
         //- a.nav-i.upload__image(href='/upload' title='Share an Image')
         //-   .icon__upload
-        a.nav-i(href=currentUser title='My Profile')
-          .icon__account
-        a.nav-i.log(href='/account/logout' title='Log Out')
-          .icon__logout
+        if user
+          a.nav-i(href=currentUser title='My Profile')
+            .icon__account
+          a.nav-i.log(href='/account/logout' title='Log Out')
+            .icon__logout
+        else
   article
     .flash-messages
     section
@@ -50,13 +52,13 @@ head
                 button.Following(type='submit') Following
             .header__data--statistics
               .posts
-                .number [POSTS]
+                .number 4
                 span posts
               a.followers.modal__open(href='/' + profile + '/followers')
-                .number [FOLLOWERS]
+                .number 729
                 span followers
               a.following.modal__open(href='/' + profile + '/following')
-                .number [FOLLOWING]
+                .number 68
                 span following
             .header__data--profile
               span= bio
