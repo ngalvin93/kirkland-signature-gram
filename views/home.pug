@@ -1,3 +1,7 @@
+- var postArr = posts
+- var userObj = user
+- var profileUrl = userObj.username
+
 doctype html
 head
   meta(charset='UTF-8')
@@ -29,210 +33,211 @@ head
           >
         a.nav-i.upload__image(href='/upload' title='Share an Image')
           .icon__upload
-        a.nav-i(href='/[CURRENT USERNAME]' title='My Profile')
+        a.nav-i(href= profileUrl title='My Profile')
           .icon__account
-        a.nav-i.log(href='/logout' title='Log Out')
+        a.nav-i.log(href='/account/logout' title='Log Out')
           .icon__logout
   article
     .flash-messages
     section
-      .img-card(style='position: relative;')
-        .img-card__header
-          .user
-            a.img(href='/[USERNAME]')
-              img(src='/uploads/avatar/a6fb9cb06d6370f3fabd.jpeg' alt="[USERNAME]'s' avatar")
-            a.username(href='/[USERNAME]') [USERNAME]
-          a.remove-image(href='/p/[POSTID]/remove') remove image
-        .img-card__image
-          img(src='/uploads/6cfc035fee0950025d2c.jpeg' alt='caption')
-        .img-card__content
-          .content__likes
-            form.icon(method='POST' action='/api/like/5dabf129159d6e073712c00e')
-              button.icon__heart.on(type='submit' name='likes')
-            a.likes.modal__open(href='/p/[POSTID]/likes') 1 like
-          .content__caption
-            p.caption [CAPTION]
-            time.img-card__date(datetime='2019-10-20T05:31:21.044Z')
-              p(style='margin: 5px 0;') 4 days ago
-          .content__comments
-            ul.comments
-        .img-card__comment
-          form.comment(action='/api/comment/[POSTID]' method='POST')
-            input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
-    section
-      .img-card(style='position: relative;')
-        .img-card__header
-          .user
-            a.img(href='/[USERNAME]')
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="[USERNAME]'s' avatar")
-            a.username(href='/[USERNAME]') [USERNAME]
-        .img-card__image
-          img(src='/uploads/2307e48c8b5242b41f8c.jpeg' alt='')
-        .img-card__content
-          .content__likes
-            form.icon(method='POST' action='/api/like/5a72e4dd2f8a8d08e5173f82')
-              button.icon__heart.on(type='submit' name='likes')
-            a.likes.modal__open(href='/p/2307e48c8b5242b41f8c/likes') 14 likes
-          .content__caption
-            p.caption
-            time.img-card__date(datetime='2018-02-01T09:58:53.265Z')
-              p(style='margin: 5px 0;') 2 years ago
-          .content__comments
-            ul.comments
-              li
-                .row
-                  a(href='/mrdion') mrdion
-                  span fgdgdfgdfgdfgfg
-              li
-                .row
-                  a(href='/thecrueladdict') thecrueladdict
-                  span Nice job!
-              li
-                .row
-                  a(href='/ayreal') ayreal
-                  span love!
-              li
-                .row
-                  a(href='/kek') kek
-                  span Kek
-              li
-                .row
-                  a(href='/mike') mike
-                  span lol
-              li
-                .row
-                  a(href='/blue') blue
-                  span nice pets
-              li
-                .row
-                  a(href='/yellow') yellow
-                  span &hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;
-              li
-                .row
-                  a(href='/meneer') meneer
-                  span Gek, hoor!
-              li
-                .row
-                  a(href='/haaserd') haaserd
-                  span Ah
-              li
-                .row
-                  a(href='/thegoldensheep') thegoldensheep
-                  span yoo!
-              li
-                .row
-                  a(href='/djo1e') djo1e
-                  span testing
-              li
-                .row
-                  a(href='/[USERNAME]') [USERNAME]
-                  span dssfsdf
-                a.remove-comment(href='/comment/5dabf109159d6e073712c00b/remove') &#x2715;
-        .img-card__comment
-          form.comment(action='/api/comment/5a72e4dd2f8a8d08e5173f82' method='POST')
-            input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
-    section
-      .img-card(style='position: relative;')
-        .img-card__header
-          .user
-            a.img(href='/[USERNAME]')
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
-            a.username(href='/[USERNAME]') [USERNAME]
-        .img-card__image
-          img(src='/uploads/5eb31158b407bd0e377d.jpeg' alt='')
-        .img-card__content
-          .content__likes
-            form.icon(method='POST' action='/api/like/5a6efeddc58d230c123708be')
-              button.icon__heart(type='submit' name='likes')
-            a.likes.modal__open(href='/p/5eb31158b407bd0e377d/likes') 7 likes
-          .content__caption
-            p.caption
-            time.img-card__date(datetime='2018-01-29T11:00:45.396Z')
-              p(style='margin: 5px 0;') 2 years ago
-          .content__comments
-            ul.comments
-              li
-                .row
-                  a(href='/aaa') aaa
-                  span a
-              li
-                .row
-                  a(href='/aaa') aaa
-                  span b
-              li
-                .row
-                  a(href='/yellow') yellow
-                  span asdasdasd
-              li
-                .row
-                  a(href='/yellow') yellow
-                  span test.
-              li
-                .row
-                  a(href='/yellow') yellow
-                  span this ws just a test.
-              li
-                .row
-                  a(href='/[USERNAME]') [USERNAME]
-                  span test
-                a.remove-comment(href='/comment/5dae566a159d6e073712c011/remove') &#x2715;
-        .img-card__comment
-          form.comment(action='/api/comment/5a6efeddc58d230c123708be' method='POST')
-            input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
-    section
-      .img-card(style='position: relative;')
-        .img-card__header
-          .user
-            a.img(href='/[USERNAME]')
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
-            a.username(href='/[USERNAME]') [USERNAME]
-        .img-card__image
-          img(src='/uploads/892ba56277cf564f4379.jpeg' alt='')
-        .img-card__content
-          .content__likes
-            form.icon(method='POST' action='/api/like/5a6efd71c58d230c123708bd')
-              button.icon__heart(type='submit' name='likes')
-            a.likes.modal__open(href='/p/892ba56277cf564f4379/likes') 10 likes
-          .content__caption
-            p.caption
-            time.img-card__date(datetime='2018-01-29T10:54:41.542Z')
-              p(style='margin: 5px 0;') 2 years ago
-          .content__comments
-            ul.comments
-        .img-card__comment
-          form.comment(action='/api/comment/5a6efd71c58d230c123708bd' method='POST')
-            input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
-    section
-      .img-card(style='position: relative;')
-        .img-card__header
-          .user
-            a.img(href='/[USERNAME]')
-              img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
-            a.username(href='/[USERNAME]') [USERNAME]
-        .img-card__image
-          img(src='/uploads/69aae1bb895aef040e26.jpeg' alt='')
-        .img-card__content
-          .content__likes
-            form.icon(method='POST' action='/api/like/5a6efb83c58d230c123708bb')
-              button.icon__heart.on(type='submit' name='likes')
-            a.likes.modal__open(href='/p/69aae1bb895aef040e26/likes') 10 likes
-          .content__caption
-            p.caption
-            time.img-card__date(datetime='2018-01-29T10:46:27.898Z')
-              p(style='margin: 5px 0;') 2 years ago
-          .content__comments
-            ul.comments
-              li
-                .row
-                  a(href='/yellow') yellow
-                  span &#x1F984;
-              li
-                .row
-                  a(href='/username11') username11
-                  span Hey this is good!
-        .img-card__comment
-          form.comment(action='/api/comment/5a6efb83c58d230c123708bb' method='POST')
-            input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+      each post in postArr
+        .img-card(style='position: relative;')
+          .img-card__header
+            .user
+              a.img(href='/[USERNAME]')
+                img(src='/uploads/avatar/a6fb9cb06d6370f3fabd.jpeg' alt="[USERNAME]'s' avatar")
+              a.username(href='/[USERNAME]') [USERNAME]
+            a.remove-image(href='/p/[POSTID]/remove') remove image
+          .img-card__image
+            img(src= post.imagePath alt='Uploaded image')
+          .img-card__content
+            .content__likes
+              form.icon(method='POST' action='/api/like/5dabf129159d6e073712c00e')
+                button.icon__heart.on(type='submit' name='likes')
+              a.likes.modal__open(href='/p/[POSTID]/likes') 1 like
+            .content__caption
+              p.caption #{post.caption}
+              time.img-card__date(datetime='2019-10-20T05:31:21.044Z')
+                p(style='margin: 5px 0;') 4 days ago
+            .content__comments
+              ul.comments
+          .img-card__comment
+            form.comment(action='/api/comment/[POSTID]' method='POST')
+              input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+    //- section
+    //-   .img-card(style='position: relative;')
+    //-     .img-card__header
+    //-       .user
+    //-         a.img(href='/[USERNAME]')
+    //-           img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="[USERNAME]'s' avatar")
+    //-         a.username(href='/[USERNAME]') [USERNAME]
+    //-     .img-card__image
+    //-       img(src='/uploads/2307e48c8b5242b41f8c.jpeg' alt='')
+    //-     .img-card__content
+    //-       .content__likes
+    //-         form.icon(method='POST' action='/api/like/5a72e4dd2f8a8d08e5173f82')
+    //-           button.icon__heart.on(type='submit' name='likes')
+    //-         a.likes.modal__open(href='/p/2307e48c8b5242b41f8c/likes') 14 likes
+    //-       .content__caption
+    //-         p.caption
+    //-         time.img-card__date(datetime='2018-02-01T09:58:53.265Z')
+    //-           p(style='margin: 5px 0;') 2 years ago
+    //-       .content__comments
+    //-         ul.comments
+    //-           li
+    //-             .row
+    //-               a(href='/mrdion') mrdion
+    //-               span fgdgdfgdfgdfgfg
+    //-           li
+    //-             .row
+    //-               a(href='/thecrueladdict') thecrueladdict
+    //-               span Nice job!
+    //-           li
+    //-             .row
+    //-               a(href='/ayreal') ayreal
+    //-               span love!
+    //-           li
+    //-             .row
+    //-               a(href='/kek') kek
+    //-               span Kek
+    //-           li
+    //-             .row
+    //-               a(href='/mike') mike
+    //-               span lol
+    //-           li
+    //-             .row
+    //-               a(href='/blue') blue
+    //-               span nice pets
+    //-           li
+    //-             .row
+    //-               a(href='/yellow') yellow
+    //-               span &hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;&hearts;&#xFE0F;
+    //-           li
+    //-             .row
+    //-               a(href='/meneer') meneer
+    //-               span Gek, hoor!
+    //-           li
+    //-             .row
+    //-               a(href='/haaserd') haaserd
+    //-               span Ah
+    //-           li
+    //-             .row
+    //-               a(href='/thegoldensheep') thegoldensheep
+    //-               span yoo!
+    //-           li
+    //-             .row
+    //-               a(href='/djo1e') djo1e
+    //-               span testing
+    //-           li
+    //-             .row
+    //-               a(href='/[USERNAME]') [USERNAME]
+    //-               span dssfsdf
+    //-             a.remove-comment(href='/comment/5dabf109159d6e073712c00b/remove') &#x2715;
+    //-     .img-card__comment
+    //-       form.comment(action='/api/comment/5a72e4dd2f8a8d08e5173f82' method='POST')
+    //-         input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+    //- section
+    //-   .img-card(style='position: relative;')
+    //-     .img-card__header
+    //-       .user
+    //-         a.img(href='/[USERNAME]')
+    //-           img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+    //-         a.username(href='/[USERNAME]') [USERNAME]
+    //-     .img-card__image
+    //-       img(src='/uploads/5eb31158b407bd0e377d.jpeg' alt='')
+    //-     .img-card__content
+    //-       .content__likes
+    //-         form.icon(method='POST' action='/api/like/5a6efeddc58d230c123708be')
+    //-           button.icon__heart(type='submit' name='likes')
+    //-         a.likes.modal__open(href='/p/5eb31158b407bd0e377d/likes') 7 likes
+    //-       .content__caption
+    //-         p.caption
+    //-         time.img-card__date(datetime='2018-01-29T11:00:45.396Z')
+    //-           p(style='margin: 5px 0;') 2 years ago
+    //-       .content__comments
+    //-         ul.comments
+    //-           li
+    //-             .row
+    //-               a(href='/aaa') aaa
+    //-               span a
+    //-           li
+    //-             .row
+    //-               a(href='/aaa') aaa
+    //-               span b
+    //-           li
+    //-             .row
+    //-               a(href='/yellow') yellow
+    //-               span asdasdasd
+    //-           li
+    //-             .row
+    //-               a(href='/yellow') yellow
+    //-               span test.
+    //-           li
+    //-             .row
+    //-               a(href='/yellow') yellow
+    //-               span this ws just a test.
+    //-           li
+    //-             .row
+    //-               a(href='/[USERNAME]') [USERNAME]
+    //-               span test
+    //-             a.remove-comment(href='/comment/5dae566a159d6e073712c011/remove') &#x2715;
+    //-     .img-card__comment
+    //-       form.comment(action='/api/comment/5a6efeddc58d230c123708be' method='POST')
+    //-         input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+    //- section
+    //-   .img-card(style='position: relative;')
+    //-     .img-card__header
+    //-       .user
+    //-         a.img(href='/[USERNAME]')
+    //-           img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+    //-         a.username(href='/[USERNAME]') [USERNAME]
+    //-     .img-card__image
+    //-       img(src='/uploads/892ba56277cf564f4379.jpeg' alt='')
+    //-     .img-card__content
+    //-       .content__likes
+    //-         form.icon(method='POST' action='/api/like/5a6efd71c58d230c123708bd')
+    //-           button.icon__heart(type='submit' name='likes')
+    //-         a.likes.modal__open(href='/p/892ba56277cf564f4379/likes') 10 likes
+    //-       .content__caption
+    //-         p.caption
+    //-         time.img-card__date(datetime='2018-01-29T10:54:41.542Z')
+    //-           p(style='margin: 5px 0;') 2 years ago
+    //-       .content__comments
+    //-         ul.comments
+    //-     .img-card__comment
+    //-       form.comment(action='/api/comment/5a6efd71c58d230c123708bd' method='POST')
+    //-         input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
+    //- section
+    //-   .img-card(style='position: relative;')
+    //-     .img-card__header
+    //-       .user
+    //-         a.img(href='/[USERNAME]')
+    //-           img(src='/uploads/avatar/51c32e6c39c86273c563.jpeg' alt="'s' avatar")
+    //-         a.username(href='/[USERNAME]') [USERNAME]
+    //-     .img-card__image
+    //-       img(src='/uploads/69aae1bb895aef040e26.jpeg' alt='')
+    //-     .img-card__content
+    //-       .content__likes
+    //-         form.icon(method='POST' action='/api/like/5a6efb83c58d230c123708bb')
+    //-           button.icon__heart.on(type='submit' name='likes')
+    //-         a.likes.modal__open(href='/p/69aae1bb895aef040e26/likes') 10 likes
+    //-       .content__caption
+    //-         p.caption
+    //-         time.img-card__date(datetime='2018-01-29T10:46:27.898Z')
+    //-           p(style='margin: 5px 0;') 2 years ago
+    //-       .content__comments
+    //-         ul.comments
+    //-           li
+    //-             .row
+    //-               a(href='/yellow') yellow
+    //-               span &#x1F984;
+    //-           li
+    //-             .row
+    //-               a(href='/username11') username11
+    //-               span Hey this is good!
+    //-     .img-card__comment
+    //-       form.comment(action='/api/comment/5a6efb83c58d230c123708bb' method='POST')
+    //-         input(name='text' placeholder='Add a comment...' autocomplete='off' maxlength='140')
     .pagination
       .pagination__prev
       .pagination__text
@@ -248,3 +253,15 @@ head
 script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
 script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+
+
+//- - var postArr = posts
+//-     ul
+//-       each post in postArr
+//-         li
+//-           p= post.imagePath
+//-           p= post.caption
+//- - var userObj = user
+//-     p= userObj.fullName
+//-     p= userObj.username
+//-     p= userObj.email
