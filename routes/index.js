@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
     getAllPosts()
       .then(function (results) {
         // console.log('All the posts here: ', results)
-        res.json(results)
+        res.render('home')
       })
   } else {
     res.render('login')
