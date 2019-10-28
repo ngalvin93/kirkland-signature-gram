@@ -11,6 +11,22 @@ This is our final project for "Phase 2" of the Flex course for DigitalCrafts Hou
 
 Our task is to build a copy of an existing web application using the backend technologies we have learned in Phase 2: express.js, PostgreSQL, knex.js, etc. We will not be designing something "new" for this project. We are choosing something that already exists and rebuilding it from scratch with our team.
 
+# Developer Tools
+
+```sh
+# Install dependencies
+npm install
+
+# Build migration
+npx knex migrate:latest
+
+# Run seed data
+npx knex seed:run
+
+# Start app
+npm start
+```
+
 
 # Technologies Used
 
