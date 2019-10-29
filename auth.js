@@ -2,7 +2,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
-const { findUserByUsernameStrategy, findUserByIdStrategy, findUserByEmail } = require('./db')
+const { findUserByUsernameStrategy, findUserByEmail } = require('./db')
 
 // configure local strategy
 const localStrategy = new LocalStrategy(
