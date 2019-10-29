@@ -25,6 +25,12 @@ npx knex seed:run
 
 # Start app
 npm start
+
+# Test for Standard style
+npm test
+
+# Run Standard linting
+npx standard --fix
 ```
 
 
