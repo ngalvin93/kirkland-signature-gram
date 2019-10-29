@@ -76,6 +76,10 @@ function findOrCreateUser (user) {
   })
 }
 
+function findUserByEmail (email) {
+  return knex.select().from('User').where('email', email)
+}
+
 module.exports = {
   findUserByUsernameStrategy,
   findUserByIdStrategy,
@@ -84,5 +88,6 @@ module.exports = {
   insertNewUser,
   getAllPosts,
   findOrCreateUser,
-  getAllPostsFromID
+  getAllPostsFromID,
+  findUserByEmail
 }
