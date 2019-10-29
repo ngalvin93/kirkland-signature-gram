@@ -5,13 +5,13 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const passport = require('./auth')
-const FacebookStrategy = require('passport-facebook').Strategy
+// const FacebookStrategy = require('passport-facebook').Strategy
 const session = require('express-session')
 
 const accountRouter = require('./routes/account') // automatically looks for index.js in the specified directory
 const indexRouter = require('./routes/index')
 
-const { findOrCreateUser } = require('./db')
+// const { findOrCreateUser } = require('./db')
 
 const app = express()
 
@@ -42,22 +42,23 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
   res.status(err.status || 500)
-  res.render('error')
+  res.send('There is an error...')
 })
 
 app.use('/account', accountRouter)
 app.use('/', indexRouter)
 
 // facebook strategy
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: '/auth/facebook/callback'
-},
-function (accessToken, refreshToken, profile, done) {
-  findOrCreateUser(profile)
-  done(null, profile)
-}))
+// passport.use(new FacebookStrategy({
+//   clientID: process.env.FACEBOOK_APP_ID,
+//   clientSecret: process.env.FACEBOOK_APP_SECRET,
+//   callbackURL: '/auth/facebook/callback', // redirect user back to app after approval from facebook; this is where the user details will be stored
+//   profileFields: ['id', 'email', 'name']
+// },
+// function (accessToken, refreshToken, profile, done) {
+//   findOrCreateUser(profile)
+//   done(null, profile)
+// }))
 
 app.get('/auth/facebook',
   passport.authenticate('facebook'))
