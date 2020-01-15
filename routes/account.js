@@ -3,6 +3,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const app = express()
+const { findUserByUsername } = require('../db/index')
 var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -56,11 +57,17 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   console.log('--------------------------------------------------------------------')
-  console.log('Here is the request body: ', req.body)
+  console.log('Here is the request body before validation: ', req.body)
   if (validRegisterInformation(req.body)) {
-    console.log('Here is the request body: ', req.body)
-    bcrypt.hash(req.body.password, 10)
-      .then(function (hash) {
+    // user typed in valid registration information
+    // check if there is exisiting user with the username entered
+    console.log('Here is the request body after passing validation: ', req.body)
+    findUserByUsername(req.body.username)
+    .then(result => {
+      console.log('result of finding user by username', result)
+    })
+    bcrypt.hash(req.body.password, 10) // hashing the password
+      .then(function (hash) { // returns the hashed password as hash
         const fullname = req.body.fullname
         const username = req.body.username
         const email = req.body.email

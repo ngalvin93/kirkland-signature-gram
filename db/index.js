@@ -43,12 +43,24 @@ function findUserByUsername (username) {
   return knex.select().from('User').where({
     username: username
   })
-    .then(function (results) {
+    // .then(function (results) {
+    //   if (results.length === 0) {
+    //     return null
+    //   } else {
+    //     return results[0]
+    //   }
+    // })
+    .then(results => {
+      console.log('THE SEARCH RESULTS', results)
       if (results.length === 0) {
-        return null
+        throw new Error ('NO RESULTS')
       } else {
         return results[0]
       }
+    })
+    .catch(error => {
+      console.error('No username found', error)
+      return null
     })
 }
 
