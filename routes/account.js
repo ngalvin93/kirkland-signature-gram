@@ -63,9 +63,9 @@ router.post('/register', function (req, res, next) {
     // check if there is exisiting user with the username entered
     console.log('Here is the request body after passing validation: ', req.body)
     findUserByUsername(req.body.username)
-    .then(result => {
-      console.log('result of finding user by username', result)
-    })
+      .then(result => {
+        console.log('result of finding user by username', result)
+      })
     bcrypt.hash(req.body.password, 10) // hashing the password
       .then(function (hash) { // returns the hashed password as hash
         const fullname = req.body.fullname

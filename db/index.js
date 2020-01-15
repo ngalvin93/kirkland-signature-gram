@@ -53,7 +53,7 @@ function findUserByUsername (username) {
     .then(results => {
       console.log('THE SEARCH RESULTS', results)
       if (results.length === 0) {
-        throw new Error ('NO RESULTS')
+        throw new Error('NO RESULTS')
       } else {
         return results[0]
       }
