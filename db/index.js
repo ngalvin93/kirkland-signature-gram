@@ -43,25 +43,25 @@ function findUserByUsername (username) {
   return knex.select().from('User').where({
     username: username
   })
-    // .then(function (results) {
-    //   if (results.length === 0) {
-    //     return null
-    //   } else {
-    //     return results[0]
-    //   }
-    // })
-    // .then(results => {
-    //   console.log('THE SEARCH RESULTS', results)
-    //   if (results.length === 0) {
-    //     throw new Error('NO RESULTS')
-    //   } else {
-    //     return results[0]
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error(error)
-    //   return null
-    // })
+  // .then(function (results) {
+  //   if (results.length === 0) {
+  //     return null
+  //   } else {
+  //     return results[0]
+  //   }
+  // })
+  // .then(results => {
+  //   console.log('THE SEARCH RESULTS', results)
+  //   if (results.length === 0) {
+  //     throw new Error('NO RESULTS')
+  //   } else {
+  //     return results[0]
+  //   }
+  // })
+  // .catch(error => {
+  //   console.error(error)
+  //   return null
+  // })
 }
 
 function insertNewUser (user) {
