@@ -64,6 +64,15 @@ function findUserByUsername (username) {
   // })
 }
 
+function checkIfUsernameUnique (username) {
+  return knex.select().from('User').where({
+    username: username
+  })
+  .then((result) => {
+    return (!result.length === 0 ? false : true)
+  })
+}
+
 function insertNewUser (user) {
   return knex('User').insert({
     fullName: user.fullName,
@@ -101,5 +110,6 @@ module.exports = {
   getAllPosts,
   findOrCreateUser,
   getAllPostsFromID,
-  findUserByEmail
+  findUserByEmail,
+  checkIfUsernameUnique
 }

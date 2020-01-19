@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const router = express.Router()
 const app = express()
 const { findUserByUsername } = require('../db/index')
-var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy } = require('../db')
+var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy, checkIfUsernameUnique } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -57,11 +57,11 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   console.log('--------------------------------------------------------------------')
-  console.log('Here is the request body before validation: ', req.body)
+  console.log('Here is the request body object validation: ', req.body)
   if (validRegisterInformation(req.body)) {
     // user typed in valid registration information
     // check if there is exisiting user with the username entered
-    findUserByUsername(req.body.username)
+    checkIfUsernameUnique(req.body.username)
       .then(result => {
         console.log('this is the orginal result', result)
         if (result.length === 0) {
