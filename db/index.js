@@ -69,7 +69,7 @@ function checkIfUsernameUnique (username) {
     username: username
   })
   .then((result) => {
-    return (!result.length === 0 ? false : true)
+    return (result.length === 0 ? true : false)
   })
 }
 
