@@ -43,34 +43,15 @@ function findUserByUsername (username) {
   return knex.select().from('User').where({
     username: username
   })
-  // .then(function (results) {
-  //   if (results.length === 0) {
-  //     return null
-  //   } else {
-  //     return results[0]
-  //   }
-  // })
-  // .then(results => {
-  //   console.log('THE SEARCH RESULTS', results)
-  //   if (results.length === 0) {
-  //     throw new Error('NO RESULTS')
-  //   } else {
-  //     return results[0]
-  //   }
-  // })
-  // .catch(error => {
-  //   console.error(error)
-  //   return null
-  // })
 }
 
 function checkIfUsernameUnique (username) {
   return knex.select().from('User').where({
     username: username
   })
-  .then((result) => {
-    return (result.length === 0 ? true : false)
-  })
+    .then((result) => {
+      return (result.length === 0)
+    })
 }
 
 function insertNewUser (user) {
