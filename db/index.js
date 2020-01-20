@@ -43,12 +43,14 @@ function findUserByUsername (username) {
   return knex.select().from('User').where({
     username: username
   })
-    .then(function (results) {
-      if (results.length === 0) {
-        return null
-      } else {
-        return results[0]
-      }
+}
+
+function checkIfUsernameUnique (username) {
+  return knex.select().from('User').where({
+    username: username
+  })
+    .then((result) => {
+      return (result.length === 0)
     })
 }
 
@@ -89,5 +91,6 @@ module.exports = {
   getAllPosts,
   findOrCreateUser,
   getAllPostsFromID,
-  findUserByEmail
+  findUserByEmail,
+  checkIfUsernameUnique
 }

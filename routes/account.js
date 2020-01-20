@@ -3,7 +3,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const app = express()
-var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy } = require('../db')
+var { getPasswordFromUsername, insertNewUser, findUserByIdStrategy, checkIfUsernameUnique } = require('../db')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -11,14 +11,6 @@ app.use(express.urlencoded({ extended: false }))
 router.get('/login', function (req, res) {
   res.render('login')
 })
-
-// function checkAuth (req, res, next) {
-//   if (req.isAuthenticated()) {
-//     next()
-//   } else {
-//     res.redirect('login')
-//   }
-// }
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'login', successRedirect: '/' }), function (req, res, next) {
   console.log('✅Verifying login information and posting to /login...')
@@ -56,11 +48,18 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res, next) {
   console.log('--------------------------------------------------------------------')
-  console.log('Here is the request body: ', req.body)
+  console.log('Here is the request body object validation: ', req.body)
   if (validRegisterInformation(req.body)) {
-    console.log('Here is the request body: ', req.body)
-    bcrypt.hash(req.body.password, 10)
-      .then(function (hash) {
+    checkIfUsernameUnique(req.body.username)
+      .then(bool => {
+        if (bool) {
+          console.log('THER IS NO USER WITH THAT NAME!!!!')
+        } else {
+          console.log('Username in use already! This should send an error in the front end.')
+        }
+      })
+    bcrypt.hash(req.body.password, 10) // hashing the password
+      .then(function (hash) { // returns the hashed password as hash
         const fullname = req.body.fullname
         const username = req.body.username
         const email = req.body.email
@@ -93,7 +92,7 @@ router.post('/register', function (req, res, next) {
             })
           })
           .catch(function (err) {
-            console.log(err)
+            console.log('caught the error here dude', err)
             next(new Error(err))
           })
       })
@@ -101,13 +100,6 @@ router.post('/register', function (req, res, next) {
     res.send('The information you entered is not valid format!')
   }
 })
-
-// req.login(user, function(err) {
-//   if (err) {
-//     return next(err);
-//   } else {
-//     return res.redirect('/users/' + req.user.username);
-//   })
 
 // clicks this on /:username
 router.get('/edit', function (req, res) {
@@ -147,7 +139,7 @@ function validRegisterInformation (user) {
   const validFullName = typeof user.fullname === 'string' && user.fullname.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 25)
   const validUsername = typeof user.username === 'string' && user.username.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 25)
   const validEmail = typeof user.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email) && user.email.trim() !== '' && (user.fullname.trim().length >= 1 && user.fullname.trim().length <= 100)
-  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length <= 6
+  const validPassword = typeof user.password === 'string' && user.password.trim() !== '' && user.password.trim().length > 5
   return validFullName && validUsername && validEmail && validPassword
 }
 
